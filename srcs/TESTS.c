@@ -63,13 +63,13 @@ void	test_print_stack(t_node *head)
 		if (curr == head)
 			break ;
 	}
-	printf("\n\n");
 }
 
 void	print_both_stacks(t_stacks *stacks)
 {
-	printf("\nSTACK_A: ");
+	printf("\nSTACK_A: size=%-5zu |", stacks->size_a);
 	test_print_stack(stacks->head_a);
-	printf("STACK_B: ");
+	printf("\nSTACK_B: size=%-5zu |", stacks->size_b);
 	test_print_stack(stacks->head_b);
+	printf("\n\n");
 }

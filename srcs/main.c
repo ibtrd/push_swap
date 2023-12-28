@@ -30,10 +30,18 @@ int	main(int argc, char **argv)
 	if (is_stack_sorted(stacks.head_a))
 		free_and_exit(&stacks, 0);
 	print_both_stacks(&stacks); //REMOVE
-
-	print_both_stacks(&stacks);
+	//sort_stack_a(&stacks);
+	sa(&stacks);
+	pb(&stacks);
+	pb(&stacks);
+	pb(&stacks);
+	rr(&stacks);
 	rrr(&stacks);
-	print_both_stacks(&stacks);
+	sa(&stacks);
+	pa(&stacks);
+	pa(&stacks);
+	pa(&stacks);
+	print_both_stacks(&stacks); //REMOVE
 	free_and_exit(&stacks, 0);
 }
 

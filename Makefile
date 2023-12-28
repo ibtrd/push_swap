@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/28 19:11:16 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2023/12/28 20:04:16 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ fclean :
 re : fclean
 	$(MAKE)
 
-ARG = 1 2 3 4 "      +3            5" 6 7 8 0
+ARG = 2 1 3 6 5 8
 
 run : 
 	@$(MAKE)

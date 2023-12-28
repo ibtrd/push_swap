@@ -13,3 +13,9 @@ int	is_stack_sorted(t_node *head)
 	}
 	return (1);
 }
+
+void	sort_stack_a(t_stacks *stacks)
+{
+	if (stacks->size_a < 2)
+		return ;
+}

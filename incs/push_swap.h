@@ -40,6 +40,7 @@ int		check_argv(char **argv);
 void	parse_argv(char **argv, t_stacks *stacks);
 void	parse_one(char *str, t_stacks *stacks);
 int		get_value(char *str, t_stacks *stacks);
+int		is_duplicate_value(t_stacks *stacks, int value);
 void	init_stacks(t_stacks *stacks);
 void	add_to_stack(t_node **head, int value);
 void	clear_stack(t_node *head);

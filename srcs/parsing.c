@@ -38,6 +38,8 @@ void	parse_one(char *str, t_stacks *stacks)
 		if (str[i])
 		{
 			value = get_value(str + i, stacks);
+			if (is_duplicate_value(stacks, value))
+				free_and_exit(stacks, true);
 			add_to_stack(&(stacks->head_a), value);
 			stacks->size_a += 1;
 		}
@@ -61,10 +63,29 @@ int	get_value(char *str, t_stacks *stacks)
 	nb = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		// if (INT_MAX / nb * 10 + str[i] - 48 )
 		nb = nb * 10 + str[i] - 48;
 		if ((nb * sign > INT_MAX || nb * sign < INT_MIN))
 			free_and_exit(stacks, true);
 		i++;
 	}
 	return (nb * sign);
+}
+
+
+int	is_duplicate_value(t_stacks *stacks, int value)
+{
+	t_node	*curr;
+
+	if (!stacks->head_a)
+		return (0);
+	curr = stacks->head_a;
+	while (1)
+	{
+		if (value == curr->value)
+			return (1);
+		curr = curr->next;
+		if (curr == stacks->head_a)
+			return (0);
+	}
 }
