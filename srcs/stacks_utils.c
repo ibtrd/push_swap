@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <limits.h>
 #include "push_swap.h"
 
 void	add_to_stack(t_node **head, int value)
@@ -30,6 +31,7 @@ void	init_stacks(t_stacks *stacks)
 {
 	stacks->head_a = NULL;
 	stacks->size_a = 0;
+	stacks->biggest_a = INT_MIN;
 	stacks->head_b = NULL;
 	stacks->size_b = 0;
 }

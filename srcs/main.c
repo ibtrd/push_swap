@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   newmain.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/28 16:57:04 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/29 01:31:01 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "instructions.h"
 #include "libft.h"
 #include <limits.h>
 #include <stdbool.h>
@@ -29,19 +28,9 @@ int	main(int argc, char **argv)
 	parse_argv(argv + 1, &stacks);
 	if (is_stack_sorted(stacks.head_a))
 		free_and_exit(&stacks, 0);
-	print_both_stacks(&stacks); //REMOVE
-	//sort_stack_a(&stacks);
-	sa(&stacks);
-	pb(&stacks);
-	pb(&stacks);
-	pb(&stacks);
-	rr(&stacks);
-	rrr(&stacks);
-	sa(&stacks);
-	pa(&stacks);
-	pa(&stacks);
-	pa(&stacks);
-	print_both_stacks(&stacks); //REMOVE
+	//print_both_stacks(&stacks); //REMOVE
+	sort_stack_a(&stacks);
+	//print_both_stacks(&stacks); //REMOVE
 	free_and_exit(&stacks, 0);
 }
 

@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/28 20:04:16 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2023/12/29 00:41:05 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC			=	main parsing sorted stacks_utils \
 				instructions/rotate \
 				instructions/swap\
 				\
-				TESTS
+				TESTS plouc_sort
 
 SRCS 		=	$(addsuffix .c, $(SRC))			
 
@@ -84,7 +84,7 @@ fclean :
 re : fclean
 	$(MAKE)
 
-ARG = 2 1 3 6 5 8
+ARG = 3 2 1
 
 run : 
 	@$(MAKE)
