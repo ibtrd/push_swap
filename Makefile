@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/29 00:41:05 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2023/12/30 01:06:46 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,13 @@ NAME = push_swap
 # *** SOURCES **************************************************************** #
 
 SRC_DIR		=	srcs/
-SRC			=	main parsing sorted stacks_utils \
+SRC			=	main parsing sorting stacks_utils \
 				instructions/push \
 				instructions/reverse_rotate \
 				instructions/rotate \
 				instructions/swap\
 				\
-				TESTS plouc_sort
+				TESTS median korean_sort
 
 SRCS 		=	$(addsuffix .c, $(SRC))			
 

@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/29 01:34:19 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/29 23:25:29 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 
 static void	instruction_push(t_node **from, t_node **to);
 
-void	pa(t_stacks *stacks)
+void	pa(t_stack *a, t_stack *b)
 {
-	instruction_push(&stacks->head_b, &stacks->head_a);
-	stacks->size_a++;
-	stacks->size_b--;
-	if (!stacks->size_b)
-		stacks->head_b = NULL;
+	instruction_push(&b->head, &a->head);
+	a->size++;
+	b->size--;
+	if (!b->size)
+		b->head = NULL;
 	write(1, "pa\n", 3);
 }
 
-void	pb(t_stacks *stacks)
+void	pb(t_stack *a, t_stack *b)
 {
-	instruction_push(&stacks->head_a, &stacks->head_b);
-	stacks->size_a--;
-	if (!stacks->size_a)
-		stacks->head_a = NULL;
-	stacks->size_b++;
+	instruction_push(&a->head, &b->head);
+	a->size--;
+	if (!a->size)
+		a->head = NULL;
+	b->size++;
 	write(1, "pb\n", 3);
 }
 

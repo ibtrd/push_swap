@@ -40,7 +40,7 @@ void	test_print_stack_infback(t_node *head)
 		}
 		if (i != 0)
 			printf(" -> ");
-		printf("%d", curr->value);
+		printf("%d(%d)", curr->value, curr->index);
 		curr = curr->prev;
 		i++;
 	}
@@ -57,7 +57,7 @@ void	test_print_stack(t_node *head)
 	{
 		if (i != 0)
 			printf(" -> ");
-		printf("%d", curr->value);
+		printf("%d(%d)", curr->value, curr->index);
 		curr = curr->next;
 		i++;
 		if (curr == head)
@@ -65,11 +65,17 @@ void	test_print_stack(t_node *head)
 	}
 }
 
-void	print_both_stacks(t_stacks *stacks)
+void	print_both_stacks(t_stack *a, t_stack *b)
 {
-	printf("\nSTACK_A: size=%-5zu |", stacks->size_a);
-	test_print_stack(stacks->head_a);
-	printf("\nSTACK_B: size=%-5zu |", stacks->size_b);
-	test_print_stack(stacks->head_b);
+	if (a)
+	{
+		printf("\nSTACK_A: size=%-5d |", a->size);
+		test_print_stack(a->head);
+	}
+	if (b)
+	{
+		printf("\nSTACK_B: size=%-5d |", b->size);
+		test_print_stack(b->head);
+	}
 	printf("\n\n");
 }

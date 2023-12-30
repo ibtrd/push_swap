@@ -3,10 +3,10 @@
 
 int		get_node_index(t_node *head, int value);
 int		get_lowest_index(int rot, int rev);
-void	plouc_sort_reverse(t_stacks *stacks);
-int	get_node_index_range(t_node *head, int value);
+void	plouc_sort_reverse(t_stack *stacks);
+int		get_node_index_range(t_node *head, int value);
 
-void	plouc_sort_atob(t_stacks *stacks)
+void	plouc_sort_atob(t_stack *a, t_stack *b)
 {
 	t_node	*curr;
 	int		smallest;
@@ -15,11 +15,11 @@ void	plouc_sort_atob(t_stacks *stacks)
 	int		big_index;
 	int		needtorb = 0;
 
-	while (stacks->size_a)
+	while (a->size)
 	{
 		smallest = 2147483647;
 		biggest = -2147483648;
-		curr = stacks->head_a;
+		curr = a->head;
 		while (curr)
 		{
 			if (curr->value < smallest)
@@ -27,87 +27,87 @@ void	plouc_sort_atob(t_stacks *stacks)
 			if (curr->value > biggest)
 				biggest = curr->value;
 			curr = curr->next;
-			if (curr == stacks->head_a)
+			if (curr == a->head)
 				break ;
 		}
-		small_index = get_node_index(stacks->head_a, smallest);
-		big_index = get_node_index_range(stacks->head_a, biggest);
+		small_index = get_node_index(a->head, smallest);
+		big_index = get_node_index(a->head, biggest);
 		int index;
 		index = get_lowest_index(small_index, big_index);
 
-		if (stacks->head_a->value == smallest || stacks->head_a->value == biggest)
+		if (a->head->value == smallest || a->head->value == biggest)
 		{
 			while (needtorb)
 			{
-				rb(stacks);
+				rb(b);
 				needtorb--;
 			}
 		}
 		if (index > 0 - needtorb)
 		{
-			while (stacks->head_a->value > smallest * 2 && stacks->head_a->value < biggest * 0.9)
+			while (a->head->value != smallest && a->head->value != biggest)
 			{
 				if (needtorb)
 				{
-					rr(stacks);
+					rr(a, b);
 					needtorb--;
 				}
 				else
-					ra(stacks);
+					ra(a);
 			}
 		}
 		else
 		{
-			while (stacks->head_a->value > smallest * 2 && stacks->head_a->value < biggest * 0.9)
-				rra(stacks);		
+			while (a->head->value != smallest && a->head->value != biggest)
+				rra(a);		
 		}
 		while (needtorb)
 		{
-			rb(stacks);
+			rb(b);
 			needtorb--;
 		}
-		if (stacks->head_a->value < biggest * 0.9)
-			pb(stacks);
+		if (a->head->value == biggest)
+			pb(a, b);
 		else
 		{
-			pb(stacks);
-			if (stacks->size_b > 1)
+			pb(a, b);
+			if (b->size > 1)
 				needtorb++;
 		}
 	}
 }
 
-void	plouc_sort_btoa(t_stacks *stacks)
+void	plouc_sort_btoa(t_stack *a, t_stack *b)
 {
 	t_node	*curr;
 	int		biggest;
 	int	big_index;
 
-	while (stacks->size_b)
+	while (b->size)
 	{
 		biggest = -2147483648;
-		curr = stacks->head_b;
+		curr = b->head;
 		while (curr)
 		{
 			if (curr->value > biggest)
 				biggest = curr->value;
 			curr = curr->next;
-			if (curr == stacks->head_b)
+			if (curr == b->head)
 				break ;
 		}
-		big_index = get_node_index(stacks->head_b, biggest);
+		big_index = get_node_index(b->head, biggest);
 
 		if (big_index >= 0)
 		{
-			while (stacks->head_b->value != biggest)
-				rb(stacks);
+			while (b->head->value != biggest)
+				rb(b);
 		}
 		else
 		{
-			while (stacks->head_b->value != biggest)
-				rrb(stacks);		
+			while (b->head->value != biggest)
+				rrb(b);		
 		}
-		pa(stacks);
+		pa(a, b);
 		}
 	}
 
@@ -152,8 +152,6 @@ int	get_node_index_range(t_node *head, int value)
 		i++;
 	}
 }
-
-#include <stdio.h>
 
 int	get_lowest_index(int i, int j)
 {

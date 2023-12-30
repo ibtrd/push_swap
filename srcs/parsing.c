@@ -6,26 +6,54 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/29 01:31:44 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/30 00:08:46 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include "push_swap.h"
+#include "libft.h"
 
-void	parse_argv(char **argv, t_stacks *stacks)
+int	check_argv(char **argv)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!ft_ischarset(argv[i][j], "\t\n\v\f\r +-0123456789"))
+				return (0);
+			if (ft_ischarset(argv[i][j], "+-") \
+				&& !ft_ischarset(argv[i][j + 1], "0123456789"))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+static void	parse_one(char *str, t_stack *a);
+static int	get_value(char *str, t_stack *a);
+static int	is_duplicate_value(t_stack *a, int value);
+
+void	parse_argv(char **argv, t_stack *a)
 {
 	int	i;
 
 	i = 0;
 	while (argv[i])
 	{
-		parse_one(argv[i], stacks);
+		parse_one(argv[i], a);
 		i++;
 	}
 }
 
-void	parse_one(char *str, t_stacks *stacks)
+static void	parse_one(char *str, t_stack *a)
 {
 	int		i;
 	int		value;
@@ -33,27 +61,27 @@ void	parse_one(char *str, t_stacks *stacks)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] == ' ')
+		while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
 			i++;
 		if (str[i])
 		{
-			value = get_value(str + i, stacks);
-			if (is_duplicate_value(stacks, value))
-				free_and_exit(stacks, true);
-			add_to_stack(&(stacks->head_a), value);
-			if (value > stacks->biggest_a)
-				stacks->biggest_a = value;
-			stacks->size_a += 1;
+			value = get_value(str + i, a);
+			if (is_duplicate_value(a, value))
+				free_and_exit(a, NULL, true);
+			add_to_stack(&(a->head), value);
+			if (value > a->biggest)
+				a->biggest = value;
+			a->size += 1;
 		}
-		while (str[i] && str[i] != ' ')
+		while (str[i] && !(str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
 			i++;
 	}
 }
 
-int	get_value(char *str, t_stacks *stacks)
+static int	get_value(char *str, t_stack *a)
 {
 	int		i;
-	long	nb;
+	int		nb;
 	int		sign;
 
 	i = 0;
@@ -65,29 +93,32 @@ int	get_value(char *str, t_stacks *stacks)
 	nb = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		// if (INT_MAX / nb * 10 + str[i] - 48 )
+		if (sign == 1 && (INT_MAX / 10 < nb \
+			|| 10 * nb > INT_MAX - (str[i] - 48)))
+			free_and_exit(a, NULL, true);
+		if (sign == -1 && (INT_MIN / 10 > -nb \
+			|| 10 * -nb < INT_MIN + (str[i] - 48)))
+			free_and_exit(a, NULL, true);
 		nb = nb * 10 + str[i] - 48;
-		if ((nb * sign > INT_MAX || nb * sign < INT_MIN))
-			free_and_exit(stacks, true);
 		i++;
 	}
 	return (nb * sign);
 }
 
 
-int	is_duplicate_value(t_stacks *stacks, int value)
+static int	is_duplicate_value(t_stack *a, int value)
 {
 	t_node	*curr;
 
-	if (!stacks->head_a)
+	if (!a->head)
 		return (0);
-	curr = stacks->head_a;
+	curr = a->head;
 	while (1)
 	{
 		if (value == curr->value)
 			return (1);
 		curr = curr->next;
-		if (curr == stacks->head_a)
+		if (curr == a->head)
 			return (0);
 	}
 }
