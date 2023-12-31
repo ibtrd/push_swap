@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 03:27:00 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 21:12:03 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/01 00:13:44 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,20 @@ t_node	*get_biggest_node(t_stack *stack)
 		curr = curr->next;
 	}
 	return (biggest);
+}
+
+t_node	*get_node(t_stack *stack, int target)
+{
+	t_node	*curr;
+	int		i;
+
+	curr = stack->head;
+	i = 0;
+	while (i++ < stack->size)
+	{
+		if (curr->index == target)
+			return (curr);
+		curr = curr->next;
+	}
+	return (NULL);
 }

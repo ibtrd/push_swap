@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 14:33:41 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 20:46:44 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 23:53:32 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	yadesrestes(t_stack *stack, int start, int end);
 void	median_presort(t_stack *a, t_stack *b, int start, int end)
 {
 	int	chunk[3][2];
-	// int security = 0;
 	int i = 0;
 	int rot_b = 0;
 	
@@ -43,11 +42,13 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 				rotate(NULL, b, true);
 				rot_b--;
 			}
+			a->head->chunk_min = chunk[1][0] + 1;
 			push(a, b, true);
 			i++;
 		}
 		else if (ft_isrange(a->head->index, chunk[0][0], chunk[0][1]))
 		{
+			a->head->chunk_min = chunk[0][0] + 1;
 			push(a, b, true);
 			rot_b++;
 			i++;
@@ -68,9 +69,11 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 	else
 	{
 		while (a->size)
+		{
+			a->head->chunk_min = start / 5 * 4;
 			push(a, b, true);
+		}
 	}
-	
 }
 
 int	yadesrestes(t_stack *stack, int start, int end)
@@ -100,21 +103,3 @@ int	ft_isrange(int i, int start, int end)
 		return (1);
 	return (0);
 }
-
-
-// int	get_median(t_stack *stack)
-// {
-// 	t_node	*curr;
-// 	int		sum;
-// 	int		i;
-
-// 	curr = stack->head;
-// 	sum = 0;
-// 	i = 0;
-// 	while (i++ < stack->size)
-// 	{
-// 		sum += curr->index;
-// 		curr = curr->next;
-// 	}
-// 	return (sum / i);
-// }

@@ -153,14 +153,4 @@ int	get_node_index_range(t_node *head, int value)
 	}
 }
 
-int	get_lowest_index(int i, int j)
-{
-	int abs_i;
-	int abs_j;
 
-	abs_i = i * ((i > 0) - (i < 0));
-	abs_j = j * ((j > 0) - (j < 0));
-	if (abs_i <= abs_j)
-		return (i);
-	return (j);
-}

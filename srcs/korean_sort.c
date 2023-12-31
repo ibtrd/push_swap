@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 21:15:52 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 21:26:11 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,50 +17,50 @@ int	get_node_index_range(t_node *head, int min, int max);
 int	set_direction(t_stack *a, int min, int max);
 int	btoa_set_direction(t_stack *b, int target);
 
-void	korean_sort(t_stack *a, t_stack *b, int chunck)
-{
-	int	i;
-	int	rb_carry;
-	int direction = 0;
+// void	korean_sort(t_stack *a, t_stack *b, int chunck)
+// {
+// 	int	i;
+// 	int	rb_carry;
+// 	int direction = 0;
 
-	i = 0;
-	rb_carry = 0;
-	while (a->size)
-	{
-		if (a->head->index <= i)
-		{
-			while (rb_carry)
-			{
-				rotate(NULL, b, true);
-				rb_carry--;
-			}
-			push(a, b, true);
-			i++;
-			direction = 0;
-		}
-		else if (a->head->index > i && a->head->index < i + chunck)
-		{
-			push(a, b, true);
-			rb_carry++;
-			i++;
-			direction = 0;
-		}
-		else
-		{
-			if (direction == 0)
-				direction = set_direction(a, 0, i + chunck);
-			if (direction < 0)
-				reverse_rotate(a, NULL, true);
-			else if (rb_carry)
-			{
-				rotate(a, b, true);
-				rb_carry--;
-			}
-			else
-				rotate(a, NULL, true);
-		}
-	}
-}
+// 	i = 0;
+// 	rb_carry = 0;
+// 	while (a->size)
+// 	{
+// 		if (a->head->index <= i)
+// 		{
+// 			while (rb_carry)
+// 			{
+// 				rotate(NULL, b, true);
+// 				rb_carry--;
+// 			}
+// 			push(a, b, true);
+// 			i++;
+// 			direction = 0;
+// 		}
+// 		else if (a->head->index > i && a->head->index < i + chunck)
+// 		{
+// 			push(a, b, true);
+// 			rb_carry++;
+// 			i++;
+// 			direction = 0;
+// 		}
+// 		else
+// 		{
+// 			if (direction == 0)
+// 				direction = set_direction(a, 0, i + chunck);
+// 			if (direction < 0)
+// 				reverse_rotate(a, NULL, true);
+// 			else if (rb_carry)
+// 			{
+// 				rotate(a, b, true);
+// 				rb_carry--;
+// 			}
+// 			else
+// 				rotate(a, NULL, true);
+// 		}
+// 	}
+// }
 
 void	set_targets(t_stack *stack, t_node *biggest, t_node *smallest);
 

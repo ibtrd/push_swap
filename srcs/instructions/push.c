@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 20:06:54 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 21:22:49 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@ void	push(t_stack *from, t_stack *to, bool print)
 		write(STDOUT_FILENO, "\n", 1);
 	}
 }
-
-// void	push_to_b(t_stack *a, t_stack *b, bool print)
-// {
-// 	instruction_p(&a->head, &b->head);
-// 	a->size--;
-// 	if (!a->size)
-// 		a->head = NULL;
-// 	b->size++;
-// 	if (print)
-// 		write(STDOUT_FILENO, "pb\n", 3);
-// }
 
 static void	instruction_p(t_node **from, t_node **to)
 {
