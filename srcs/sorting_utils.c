@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 03:27:00 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/30 09:23:47 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/30 19:28:15 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_node	*get_biggest_node(t_stack *stack)
 {
 	t_node	*curr;
 	t_node	*biggest;
-	int 	i;
+	int		i;
 
 	curr = stack->head;
 	biggest = curr;

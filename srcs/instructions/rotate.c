@@ -6,35 +6,30 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:35:13 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/29 23:29:05 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 05:51:09 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
 
-static void	instruction_rotate(t_node **head);
+static void	instruction_r(t_node **head);
 
-void	ra(t_stack *a)
+void	rotate(t_stack *a, t_stack *b, bool print)
 {
-	instruction_rotate(&a->head);
-	write(1, "ra\n", 3);
+	if (a)
+		instruction_r(&a->head);
+	if (b)
+		instruction_r(&b->head);
+	if (print && a && b)
+		write(STDOUT_FILENO, "rr\n", 3);
+	else if (print && a)
+		write(STDOUT_FILENO, "ra\n", 3);
+	else if (print && b)
+		write(STDOUT_FILENO, "rb\n", 3);
 }
 
-void	rb(t_stack *b)
-{
-	instruction_rotate(&b->head);
-	write(1, "rb\n", 3);
-}
-
-void	rr(t_stack *a, t_stack *b)
-{
-	instruction_rotate(&a->head);
-	instruction_rotate(&b->head);
-	write(1, "rr\n", 3);
-}
-
-static void	instruction_rotate(t_node **head)
+static void	instruction_r(t_node **head)
 {
 	if (*head)
 		*head = (*head)->next;

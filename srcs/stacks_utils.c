@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/30 00:24:44 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 04:59:03 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <limits.h>
 #include "push_swap.h"
 
-void	init_stack(t_stack *stack)
+void	init_stacks(t_stack *a, t_stack *b)
 {
-	stack->head = NULL;
-	stack->size = 0;
-	stack->biggest = INT_MIN;
-	stack->smallest = INT_MAX;
+	a->head = NULL;
+	a->size = 0;
+	b->head = NULL;
+	b->size = 0;
 }
 
 void	add_to_stack(t_node **head, int value)

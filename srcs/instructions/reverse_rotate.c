@@ -6,35 +6,30 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:47 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/29 23:31:25 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 05:04:34 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
 
-static void	instruction_reverse_rotate(t_node **head);
+static void	instruction_rr(t_node **head);
 
-void	rra(t_stack *a)
+void	reverse_rotate(t_stack *a, t_stack *b, bool print)
 {
-	instruction_reverse_rotate(&a->head);
-	write(1, "rra\n", 4);
+	if (a)
+		instruction_rr(&a->head);
+	if (b)
+		instruction_rr(&b->head);
+	if (print && a && b)
+		write(STDOUT_FILENO, "rrr\n", 4);
+	else if (print && a)
+		write(STDOUT_FILENO, "rra\n", 4);
+	else if (print && b)
+		write(STDOUT_FILENO, "rrb\n", 4);
 }
 
-void	rrb(t_stack *b)
-{
-	instruction_reverse_rotate(&b->head);
-	write(1, "rrb\n", 4);
-}
-
-void	rrr(t_stack *a, t_stack *b)
-{
-	instruction_reverse_rotate(&a->head);
-	instruction_reverse_rotate(&b->head);
-	write(1, "rrr\n", 4);
-}
-
-static void	instruction_reverse_rotate(t_node **head)
+static void	instruction_rr(t_node **head)
 {
 	if (*head)
 		*head = (*head)->prev;

@@ -1,7 +1,8 @@
 {
 	"files.exclude": {
 		"checker_linux": true,
-		"push_swap": true
+		"push_swap": true,
+		".build": true
 	},
 	"files.associations": {
 		"optional": "c",
@@ -15,6 +16,7 @@
 		"type_traits": "c",
 		"utility": "c",
 		"variant": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"push_swap.h": "c"
 	}
 }

@@ -6,36 +6,38 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/29 23:25:29 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 04:56:55 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
 
-static void	instruction_push(t_node **from, t_node **to);
+static void	instruction_p(t_node **from, t_node **to);
 
-void	pa(t_stack *a, t_stack *b)
+void	push_to_a(t_stack *a, t_stack *b, bool print)
 {
-	instruction_push(&b->head, &a->head);
+	instruction_p(&b->head, &a->head);
 	a->size++;
 	b->size--;
 	if (!b->size)
 		b->head = NULL;
-	write(1, "pa\n", 3);
+	if (print)
+		write(STDOUT_FILENO, "pa\n", 3);
 }
 
-void	pb(t_stack *a, t_stack *b)
+void	push_to_b(t_stack *a, t_stack *b, bool print)
 {
-	instruction_push(&a->head, &b->head);
+	instruction_p(&a->head, &b->head);
 	a->size--;
 	if (!a->size)
 		a->head = NULL;
 	b->size++;
-	write(1, "pb\n", 3);
+	if (print)
+		write(STDOUT_FILENO, "pb\n", 3);
 }
 
-static void	instruction_push(t_node **from, t_node **to)
+static void	instruction_p(t_node **from, t_node **to)
 {
 	t_node	*temp;
 

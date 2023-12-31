@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/30 00:08:46 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 05:03:23 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	check_argv(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (!ft_ischarset(argv[i][j], "\t\n\v\f\r +-0123456789"))
+			if (!ft_isdigit(argv[i][j]) \
+				&& !ft_ischarset(argv[i][j], SEP_AND_SIGN))
 				return (0);
-			if (ft_ischarset(argv[i][j], "+-") \
-				&& !ft_ischarset(argv[i][j + 1], "0123456789"))
+			if (ft_ischarset(argv[i][j], SIGN) \
+				&& (!ft_isdigit(argv[i][j + 1]) \
+				|| (j != 0 && !ft_ischarset(argv[i][j - 1], SEP))))
 				return (0);
 			j++;
 		}
@@ -61,7 +63,7 @@ static void	parse_one(char *str, t_stack *a)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+		while (ft_ischarset(str[i], SEP))
 			i++;
 		if (str[i])
 		{
@@ -69,11 +71,9 @@ static void	parse_one(char *str, t_stack *a)
 			if (is_duplicate_value(a, value))
 				free_and_exit(a, NULL, true);
 			add_to_stack(&(a->head), value);
-			if (value > a->biggest)
-				a->biggest = value;
-			a->size += 1;
+			a->size += 1; 
 		}
-		while (str[i] && !(str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r')))
+		while (str[i] && !ft_ischarset(str[i], SEP))
 			i++;
 	}
 }

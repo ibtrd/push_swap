@@ -6,31 +6,37 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/30 01:06:46 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2023/12/31 02:31:45 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+NAME_BONUS = checker
 
 # *** SOURCES **************************************************************** #
 
 SRC_DIR		=	srcs/
-SRC			=	main parsing sorting stacks_utils \
+SRC			=	main parsing sorting sorting_utils stacks_utils \
 				instructions/push \
 				instructions/reverse_rotate \
 				instructions/rotate \
 				instructions/swap\
 				\
-				TESTS median korean_sort
+				TESTS korean_sort
 
-SRCS 		=	$(addsuffix .c, $(SRC))			
+SRC_BONUS	=	bonus/main_bonus
+
+SRCS 		=	$(addsuffix .c, $(SRC))
+SRCS_BONUS 	=	$(addsuffix .c, $(SRC_BONUS))
 
 # *** OBJECTS **************************************************************** #
 
 BUILD_DIR	=	.build/
 
 OBJS 		=	$(SRCS:%.c=$(BUILD_DIR)%.o)
-DEPS		=	$(OBJS:%.o=%.d)
+OBJS_BONUS	=	$(SRCS_BONUS:%.c=$(BUILD_DIR)%.o)
+DEPS		=	$(OBJS:%.o=%.d) \
+				$(OBJS_BONUS:%.o=%.d)
 
 # *** LIBRARIES ************************************************************** #
 
@@ -42,13 +48,11 @@ INCLUDES	=	incs \
 
 # *** CONFIG ***************************************************************** #
 
-CC			=	cc
 CFLAGS		+=	-Wall -Wextra -Werror -g3
 CPPFLAGS	= 	-MMD -MP $(addprefix -I, $(INCLUDES))
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_PATH)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
 
-RM			=	rm -rf
 MKDIR 		= 	mkdir -p $(@D)
 
 # *** TARGETS **************************************************************** #
@@ -68,33 +72,25 @@ $(LIBS_PATH) :
 
 -include $(DEPS)
 
-bonus : all
+bonus : $(NAME_BONUS)
+
+$(NAME_BONUS) : $(LIBS_PATH) $(OBJS_BONUS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS_BONUS) $(LDFLAGS) $(LDLIBS) -o $(NAME_BONUS) 
+	@echo "$(BLUE) $(NAME_BONUS) has been created! $(RESET)"
 
 clean :
 	$(MAKE) -C $(dir $(LIBS_PATH)) clean
-	$(RM) $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
 	@echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
 	
 fclean :
 	$(MAKE) -C $(dir $(LIBS_PATH)) fclean
-	$(RM) $(BUILD_DIR)
-	$(RM) $(NAME)
+	rm -rf $(BUILD_DIR)
+	$(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(YELLOW) $(NAME) removed! $(RESET)"
 	
 re : fclean
 	$(MAKE)
-
-ARG = 3 2 1
-
-run : 
-	@$(MAKE)
-	./$(NAME) $(ARG)
-
-VALGRIND = valgrind --leak-check=full --leak-check=full
-
-valgrind :
-	@$(MAKE)
-	$(VALGRIND) ./$(NAME) $(ARG)
 	
 # *** SPECIAL TARGETS ******************************************************** #
 

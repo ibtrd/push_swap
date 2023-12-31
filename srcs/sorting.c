@@ -1,21 +1,23 @@
 #include "push_swap.h"
 #include <limits.h>
 
-void	sort_two_elements(t_stack *stack)
+void	sort_two_elements(t_stack *a)
 {
-	if (stack->head->value > stack->head->next->value)
-		sa(stack);
+	if (a->head->value > a->head->next->value)
+		swap(a, NULL, true);
 }
 
-void	sort_three_elements(t_stack *stack)
+void	sort_three_elements(t_stack *a)
 {
-	//set_biggest_and_smallest(stack);
-	if (stack->head->value == stack->biggest)
-		ra(stack);
-	else if (stack->head->next->value == stack->biggest)
-		rra(stack);
-	if (stack->head->value > stack->head->next->value)
-		sa(stack);
+	t_node	*biggest;
+
+	biggest = get_biggest_node(a);
+	if (a->head->index == biggest->index)
+		rotate(a, NULL, true);
+	else if (a->head->next->index == biggest->index)
+		reverse_rotate(a, NULL, true);
+	if (a->head->index > a->head->next->index)
+		swap(a, NULL, true);
 }
 
 // void	sort_up_to_five(t_stack *a, t_stack *b)
