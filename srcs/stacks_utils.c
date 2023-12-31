@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 04:59:03 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 18:37:27 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 void	init_stacks(t_stack *a, t_stack *b)
 {
+	a->id = 'a';
 	a->head = NULL;
 	a->size = 0;
+	b->id = 'b';
 	b->head = NULL;
 	b->size = 0;
 }

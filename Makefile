@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/31 02:31:45 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2023/12/31 19:38:55 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC			=	main parsing sorting sorting_utils stacks_utils \
 				instructions/rotate \
 				instructions/swap\
 				\
-				TESTS korean_sort
+				TESTS pre_sort korean_sort
 
 SRC_BONUS	=	bonus/main_bonus
 
@@ -57,9 +57,9 @@ MKDIR 		= 	mkdir -p $(@D)
 
 # *** TARGETS **************************************************************** #
 
-all : $(NAME) 
+all : libs $(NAME) 
 
-$(NAME) : $(LIBS_PATH) $(OBJS)
+$(NAME) : $(LIBS_PATH) $(OBJS) | libs
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 	@echo "$(BLUE) $(NAME) has been created! $(RESET)"
 
@@ -67,8 +67,8 @@ $(BUILD_DIR)%.o : $(SRC_DIR)%.c
 	@$(MKDIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-$(LIBS_PATH) :
-	$(MAKE) -C $(@D)
+libs :
+	$(MAKE) -C $(dir $(LIBS_PATH))
 
 -include $(DEPS)
 
@@ -94,7 +94,7 @@ re : fclean
 	
 # *** SPECIAL TARGETS ******************************************************** #
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re libs
 
 # *** FANCY STUFF ************************************************************ #
 

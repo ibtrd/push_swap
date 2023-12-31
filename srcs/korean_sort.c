@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 09:16:26 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 21:15:52 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	korean_sort(t_stack *a, t_stack *b, int chunck)
 				rotate(NULL, b, true);
 				rb_carry--;
 			}
-			push_to_b(a, b, true);
+			push(a, b, true);
 			i++;
 			direction = 0;
 		}
 		else if (a->head->index > i && a->head->index < i + chunck)
 		{
-			push_to_b(a, b, true);
+			push(a, b, true);
 			rb_carry++;
 			i++;
 			direction = 0;
@@ -62,43 +62,76 @@ void	korean_sort(t_stack *a, t_stack *b, int chunck)
 	}
 }
 
+void	set_targets(t_stack *stack, t_node *biggest, t_node *smallest);
+
 void	korean_sort_back(t_stack *a, t_stack *b, int chunck)
 {
-	t_node	*biggest;
+	t_node	*top;
 	int		direction;
+	int		low;
 
+	(void)chunck;
+	low = 0;
 	direction = 0;
 	while (b->size)
 	{
-		if (b->size > 1 && b->head->index < b->head->next->index - chunck / 2)
-			swap(NULL, b, true);
-		biggest = get_biggest_node(b);
-		if (direction == 0)
-			direction = btoa_set_direction(b, biggest->index);
+		top = get_biggest_node(b);
+		#include "ft_printf.h"
+		//ft_dprintf(2, "biggest=%d\n", biggest->index);
+		direction = btoa_set_direction(b, top->index);
 		if (direction < 0)
 		{
-			while (b->head->index < biggest->index - 1)
-				reverse_rotate(NULL, b, true);
+			while (b->head->index != top->index)
+			{
+				if (a->size && !low && b->head->index <= top->index)
+				{
+					push(b, a, true);
+					rotate(a, NULL, true);
+					low = 1;
+				}
+				else if (low && b->head->index == a->head->prev->index + 1)
+				{
+					push(b, a, true);
+					rotate(a, NULL, true);
+				}
+				else if (a->size > 1 && a->head->index == a->head->prev->index + 1)
+					reverse_rotate(a, b, true);
+				else
+					reverse_rotate(NULL, b, true);
+			}
 		}
 		else
 		{
-			while (b->head->index < biggest->index - 1)
-				rotate(NULL, b, true);
+			while (b->head->index != top->index)
+			{
+				if (a->size && !low && b->head->index <= top->index)
+				{
+					push(b, a, true);
+					rotate(a, NULL, true);
+					low = 1;
+				}
+				else if (low && b->head->index == a->head->prev->index + 1)
+				{
+					push(b, a, true);
+					rotate(a, NULL, true);
+				}
+				else
+					rotate(NULL, b, true);
+			}
 		}
-		if (b->head->index >= biggest->index - 1)
+		while (a->size && a->head->index == a->head->prev->index + 1 && a->head->index == a->head->next->index - 1 && a->head->index != a->head->prev->index)
 		{
-			push_to_a(a, b, true);
-			direction = 0;
+			reverse_rotate(a, NULL, true);
+			low = 0;
 		}
-		if (a->size && a->head->index > a->head->next->index)
+		if (b->head->index == top->index)
 		{
-			if (b->size > 1 && b->head->index < b->head->next->index)
-				swap(a, b, true);
-			else
-				swap(a, NULL, true);	
+			//ft_dprintf(2, "\tpushing=%d", b->head->index);
+			push(b, a, true);
 		}
 	}
 }
+
 
 int	get_node_index(t_node *head, int index)
 {

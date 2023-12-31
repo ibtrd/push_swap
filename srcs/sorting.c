@@ -25,13 +25,13 @@ void	sort_up_to_five(t_stack *a, t_stack *b)
 	while (b->size <= 1)
 	{
 		if (a->head->index == 0 || a->head->index == 1)
-			push_to_b(a, b, true);
+			push(a, b, true);
 		else
 			rotate(a, b, true);
 	}
 	sort_three_elements(a);
-	push_to_a(a, b, true);
-	push_to_a(a, b, true);
+	push(b, a, true);
+	push(b, a, true);
 	if (a->head->index > a->head->next->index)
 		swap(a, NULL, true);
 }

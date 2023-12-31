@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 10:08:17 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 20:48:15 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "push_swap.h"
 
 static void	sort_stack(t_stack *a, t_stack *b);
-static int	chunck_size_formula(int size);
+// static int	chunck_size_formula(int size);
 
 int	main(int argc, char **argv)
 {
@@ -34,12 +34,14 @@ int	main(int argc, char **argv)
 	if (is_stack_sorted(a.head))
 		free_and_exit(&a, &b, false);
 	sort_stack(&a, &b);
+	#include "ft_printf.h"
+	ft_dprintf(2, "<><><><><><><><><><><><><><><><><><><><><><><>");
 	free_and_exit(&a, &b, false);
 }
 
 static void	sort_stack(t_stack *a, t_stack *b)
 {
-	int		chunck;
+	// int		chunck;
 
 	set_index(a);
 	if (a->size == 2)
@@ -50,19 +52,20 @@ static void	sort_stack(t_stack *a, t_stack *b)
 		sort_up_to_five(a, b);
 	else
 	{
-		chunck = chunck_size_formula(a->size);
-		korean_sort(a, b, chunck);
-		korean_sort_back(a, b, chunck);
+		median_presort(a, b, 0, a->size);
+		// chunck = chunck_size_formula(a->size);
+		// korean_sort(a, b, chunck);
+		korean_sort_back(a, b, 15);
 	}
 }
 
-static int	chunck_size_formula(int size)
-{
-	double	chunck;
+// static int	chunck_size_formula(int size)
+// {
+// 	double	chunck;
 
-	chunck = 0.000000053 * size * size + 0.03 * size + 14.5;
-	return (chunck);
-}
+// 	chunck = 0.000000053 * size * size + 0.03 * size + 14.5;
+// 	return (chunck);
+// }
 
 void	free_and_exit(t_stack *a, t_stack *b, bool error)
 {

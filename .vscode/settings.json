@@ -17,6 +17,7 @@
 		"utility": "c",
 		"variant": "c",
 		"stdlib.h": "c",
-		"push_swap.h": "c"
+		"push_swap.h": "c",
+		"ft_printf.h": "c"
 	}
 }
