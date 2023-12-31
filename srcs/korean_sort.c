@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 08:54:20 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2023/12/31 09:16:26 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	korean_sort(t_stack *a, t_stack *b, int chunck)
 	}
 }
 
-void	korean_sort_back(t_stack *a, t_stack *b)
+void	korean_sort_back(t_stack *a, t_stack *b, int chunck)
 {
 	t_node	*biggest;
 	int		direction;
@@ -70,6 +70,8 @@ void	korean_sort_back(t_stack *a, t_stack *b)
 	direction = 0;
 	while (b->size)
 	{
+		if (b->size > 1 && b->head->index < b->head->next->index - chunck / 2)
+			swap(NULL, b, true);
 		biggest = get_biggest_node(b);
 		if (direction == 0)
 			direction = btoa_set_direction(b, biggest->index);

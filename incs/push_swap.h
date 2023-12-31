@@ -55,7 +55,7 @@ void	sort_up_to_five(t_stack *a, t_stack *b);
 void	sort_n_elements(t_stack *a, t_stack *b, int div);
 
 void	korean_sort(t_stack *a, t_stack *b, int chunck);
-void	korean_sort_back(t_stack *a, t_stack *b);
+void	korean_sort_back(t_stack *a, t_stack *b, int chunck);
 
 //STACKS
 void	init_stacks(t_stack *a, t_stack *b);

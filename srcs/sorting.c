@@ -20,19 +20,18 @@ void	sort_three_elements(t_stack *a)
 		swap(a, NULL, true);
 }
 
-// void	sort_up_to_five(t_stack *a, t_stack *b)
-// {
-// 	while (a->size != 3)
-// 		pb(a, b);
-// 	sort_three_elements(a);
-// 	while (b->size != 0)
-// 	{
-// 		while (b->head->value > a->head->next->value && )
-// 			ra(a);
-// 		pa(a, b);
-// 		if (a->head->value > a->head->prev->value)
-// 			ra(a);
-// 		else if (a->head->value > a->head->next->value)
-// 			sa(a);
-// 	}
-// }
+void	sort_up_to_five(t_stack *a, t_stack *b)
+{
+	while (b->size <= 1)
+	{
+		if (a->head->index == 0 || a->head->index == 1)
+			push_to_b(a, b, true);
+		else
+			rotate(a, b, true);
+	}
+	sort_three_elements(a);
+	push_to_a(a, b, true);
+	push_to_a(a, b, true);
+	if (a->head->index > a->head->next->index)
+		swap(a, NULL, true);
+}
