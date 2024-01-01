@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 03:27:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/01 00:13:44 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/01 01:20:17 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_node	*get_biggest_node(t_stack *stack)
 	return (biggest);
 }
 
-t_node	*get_node(t_stack *stack, int target)
+t_node	*get_single_node(t_stack *stack, int target)
 {
 	t_node	*curr;
 	int		i;
@@ -71,4 +71,25 @@ t_node	*get_node(t_stack *stack, int target)
 		curr = curr->next;
 	}
 	return (NULL);
+}
+
+int	single_node_distance(t_node *head, t_node *target)
+{
+	t_node	*rot;
+	t_node	*rev;
+	int		i;
+
+	i = 0;
+	rot = head;
+	rev = head;
+	while (1)
+	{
+		if (rev == target)
+			return (-i);
+		if (rot == target)
+			return (i);
+		rot = rot->next;
+		rev = rev->prev;
+		i++;
+	}
 }

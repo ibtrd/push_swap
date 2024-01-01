@@ -67,9 +67,11 @@ void	clear_stack(t_node *head);
 int		is_stack_sorted(t_node *head);
 int		get_len_to_node(t_node *head, t_node *target);
 t_node	*get_biggest_node(t_stack *stack);
+void	rotation_control(t_stack *a, t_stack *b, int control, bool print);
 
 //UTILS
 void	free_and_exit(t_stack *a, t_stack *b, bool error);
+
 
 //REMOVE
 void	print_both_stacks(t_stack *a, t_stack *b);
