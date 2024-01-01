@@ -20,6 +20,10 @@
 # define SEP "\t\n\v\f\r "
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
+# ifndef PRESORT
+#  define PRESORT 30
+# endif
+
 typedef struct s_node
 {
 	int				value;

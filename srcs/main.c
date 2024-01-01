@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 21:36:16 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/01 18:37:15 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	sort_stack(t_stack *a, t_stack *b)
 	else
 	{
 		median_presort(a, b, 0, a->size);
-		korean_sort_b_to_a(a, b);
+		//korean_sort_b_to_a(a, b);
 	}
 }
 

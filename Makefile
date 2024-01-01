@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2023/12/31 21:37:32 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/01 18:37:04 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC			=	main parsing sorting sorting_utils stacks_utils \
 				instructions/rotate \
 				instructions/swap\
 				\
-				TESTS pre_sort sort_b_to_a
+				TESTS pre_sort \
+				
 
 SRC_BONUS	=	bonus/main_bonus
 
