@@ -106,6 +106,7 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end);
 //OPERATION LISTS
 t_op	*op_new(enum e_operation i);
 void	op_add_front(t_op **list, t_op *new);
+void	op_add_back(t_op **list, t_op *new);
 void	op_clear(t_op **list);
 void	operation_to_list(t_stack *stack, enum e_operation i);
 void	print_operation(enum e_operation i);

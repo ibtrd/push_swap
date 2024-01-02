@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:35:37 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 08:49:59 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 19:37:54 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,27 @@ static void	instruction_s(t_node *head);
 
 void	swap(t_stack *a, t_stack *b, bool print)
 {
-	if (a)
+	enum e_operation	i;
+	
+	if (!print && a)
 		instruction_s(a->head);
-	if (b)
+	if (!print && b)
 		instruction_s(b->head);
-	if (print && a && b)
-		write(STDOUT_FILENO, "ss\n", 3);
-	else if (print && a)
-		write(STDOUT_FILENO, "sa\n", 3);
-	else if (print && b)
-		write(STDOUT_FILENO, "sb\n", 3);
+	if (a && b)
+		i = SWAP_AB;
+	else if (a)
+		i = SWAP_A;
+	else if (b)
+		i = SWAP_B;
+	if (print)
+		print_operation(i);
+	else
+	{
+		if (a)
+			operation_to_list(a, i);
+		if (b)
+			operation_to_list(b, i);
+	}
 }
 
 static void	instruction_s(t_node *head)

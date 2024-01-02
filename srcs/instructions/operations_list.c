@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 07:51:53 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 17:14:37 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:27:00 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,18 @@ void	op_clear(t_op **list)
 	}
 }
 
+void	op_add_back(t_op **list, t_op *new)
+{
+	static t_op	*tail = NULL;
 
+	if (!*list)
+	{
+		*list = new;
+		tail = new;
+	}
+	else
+	{
+		tail->next = new;
+		tail = new;
+	}
+}

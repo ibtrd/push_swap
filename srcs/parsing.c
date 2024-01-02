@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 05:03:23 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 18:10:11 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	parse_one(char *str, t_stack *a)
 			if (is_duplicate_value(a, value))
 				free_and_exit(a, NULL, true);
 			add_to_stack(&(a->head), value);
-			a->size += 1; 
+			a->size += 1;
 		}
 		while (str[i] && !ft_ischarset(str[i], SEP))
 			i++;
@@ -104,7 +104,6 @@ static int	get_value(char *str, t_stack *a)
 	}
 	return (nb * sign);
 }
-
 
 static int	is_duplicate_value(t_stack *a, int value)
 {

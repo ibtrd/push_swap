@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2023/12/31 21:22:49 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 19:09:11 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@ static void	instruction_p(t_node **from, t_node **to);
 
 void	push(t_stack *from, t_stack *to, bool print)
 {
+	enum e_operation	i;
+
 	instruction_p(&from->head, &to->head);
 	to->size++;
 	from->size--;
 	if (!from->size)
 		from->head = NULL;
+	if (to->id == 'a')
+		i = PUSH_A;
+	else
+		i = PUSH_B;
 	if (print)
-	{
-		write(STDOUT_FILENO, "p", 1);
-		write(STDOUT_FILENO, &to->id, 1);
-		write(STDOUT_FILENO, "\n", 1);
-	}
+		print_operation(i);
+	else
+		operation_to_list(to, i);
 }
 
 static void	instruction_p(t_node **from, t_node **to)
