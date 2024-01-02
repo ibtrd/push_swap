@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:02:44 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 17:54:02 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 17:56:04 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	print_operation(enum e_operation i)
 	static const char	*str[] = {"sa\n", "sb\n", "ss\n", "pa\n", "pb\n", \
 		"ra\n", "rb\n", "rr\n", "rra\n", "rrb\n", "rrr\n"};
 
-	#include "ft_printf.h"
-	ft_dprintf(2, "voici le i qui bug=%d\n", i);
 	if (i < 8)
 		write(STDOUT_FILENO, str[i], 3);
 	else
