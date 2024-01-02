@@ -23,6 +23,9 @@
 		"string_view": "c",
 		"initializer_list": "c",
 		"ranges": "c",
-		"regex": "c"
+		"regex": "c",
+		"libft.h": "c",
+		"errno.h": "c",
+		"error_t.h": "c"
 	}
 }

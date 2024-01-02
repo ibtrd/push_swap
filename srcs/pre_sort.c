@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 14:33:41 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 02:58:14 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 07:45:09 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include <stdio.h> //REMOVE
 
-int	yadesrestes(t_stack *stack, int start, int end);
 void	set_ranges(double chunk[3][2], int start, int end);
 
 void	median_presort(t_stack *a, t_stack *b, int start, int end)
@@ -74,32 +73,4 @@ void	set_ranges(double chunk[3][2], int start, int end)
 	chunk[1][1] = start + (end - start) / x;
 	chunk[2][0] = start + (end - start) / x + 1;
 	chunk[2][1] = end;
-}
-
-int	yadesrestes(t_stack *stack, int start, int end)
-{
-	t_node	*rot;
-	t_node	*rev;
-	int i;
-	
-	rot = stack->head;
-	rev = stack->head;
-	i = 0;
-	while (i++ < stack->size)
-	{
-		if (ft_isrange(rot->index, start, end))
-			return (1);
-		if (ft_isrange(rev->index, start, end))
-			return (1);
-		rot = rot->next;
-		rev = rev->prev;
-	}
-	return (0);
-}
-
-int	ft_isrange(int i, int start, int end)
-{
-	if (i >= start && i <= end)
-		return (1);
-	return (0);
 }

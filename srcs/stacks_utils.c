@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 00:08:02 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 17:17:41 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 #include <limits.h>
 #include "push_swap.h"
 
-void	init_stacks(t_stack *a, t_stack *b)
+
+void	init_stacks(t_stack *a, t_stack *b, t_op **list)
 {
+	*list = NULL;
 	a->id = 'a';
 	a->head = NULL;
 	a->size = 0;
+	a->operations = list;
 	b->id = 'b';
 	b->head = NULL;
 	b->size = 0;
+	b->operations = list;
 }
 
 void	add_to_stack(t_node **head, int value)

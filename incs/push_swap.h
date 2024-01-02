@@ -21,7 +21,7 @@
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
 # ifndef PRESORT
-#  define PRESORT 35
+#  define PRESORT 33
 # endif
 
 typedef struct s_node
@@ -38,9 +38,30 @@ typedef struct s_stack
 	char			id;
 	struct s_node	*head;
 	int				size;
+	struct s_op		**operations;
+	struct s_node	**sister;
 }	t_stack;
 
-// INSTRUCTIONS
+enum e_operation
+{
+	SWAP_A,
+	SWAP_B,
+	SWAP_AB,
+	PUSH_A,
+	PUSH_B,
+	ROTATE_A,
+	ROTATE_B,
+	ROTATE_AB,
+	REVERSE_ROTATE_A,
+	REVERSE_ROTATE_B,
+	REVERSE_ROTATE_AB,
+};
+
+typedef struct s_op
+{
+	enum e_operation	op;
+	struct s_op			*next;
+}	t_op;
 
 void	swap(t_stack *a, t_stack *b, bool print);
 void	push(t_stack *from, t_stack *to, bool print);
@@ -64,7 +85,7 @@ void	korean_sort(t_stack *a, t_stack *b, int chunck);
 void	korean_sort_back(t_stack *a, t_stack *b, int chunck);
 
 //STACKS
-void	init_stacks(t_stack *a, t_stack *b);
+void	init_stacks(t_stack *a, t_stack *b, t_op **list);
 void	set_index(t_stack *stack);
 void	add_to_stack(t_node **head, int value);
 void	set_biggest_and_smallest(t_stack *stack);
@@ -81,5 +102,12 @@ void	print_both_stacks(t_stack *a, t_stack *b);
 
 //MEDIAN SORTING
 void	median_presort(t_stack *a, t_stack *b, int start, int end);
+
+//OPERATION LISTS
+t_op	*op_new(enum e_operation i);
+void	op_add_front(t_op **list, t_op *new);
+void	op_clear(t_op **list);
+void	operation_to_list(t_stack *stack, enum e_operation i);
+void	print_operation(enum e_operation i);
 
 #endif

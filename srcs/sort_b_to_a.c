@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 03:47:38 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 17:22:48 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,26 @@ void	insert_sort_b_to_a(t_stack *a, t_stack *b)
 {
 	int		bot_stack;
 	int		direction;
-	
-	// int		security = 0;
+	t_node	*biggest;
 
 	bot_stack = 0;
 	direction = 0;
 	while (b->head)
 	{
+		while (a->size < 3)
+		{
+			biggest = get_biggest_node(b);
+			direction = single_node_distance(b->head, biggest);
+			while (direction > 0 && b->head->index != biggest->index)
+				rotate(NULL, b, true);
+			while (direction < 0 && b->head->index != biggest->index)
+				reverse_rotate(NULL, b, true);
+			push(b, a, true);
+			direction = set_direction(a, b);
+		}
 		if (direction == 0)
 			direction = set_direction(a, b);
 		instruction(a, b, &direction, &bot_stack);
-		// if (security++ > 9000)
-		// 	free_and_exit(a, b, true);
 	}
 	bring_bottom_stack_up(a, &bot_stack);
 }
@@ -53,22 +61,18 @@ void	instruction(t_stack *a, t_stack *b, int *direction, int *bot_stack)
 		push(b, a, true);
 		*direction = 0;
 	}
-	else if (!*bot_stack && b->head->value >= a->head->chunk_min)
+	else if (!*bot_stack)
 	{
-		// ft_dprintf(2, "pushing to bot stack: index=%d\n", b->head->index);
 		push(b, a, true);
 		rotate(a, NULL, true);
 		*bot_stack += 1;
-		// ft_dprintf(2, "\tbot_stack value =%d\n", *bot_stack);
 		*direction = 0;
 	}
 	else if (b->head->index == a->head->prev->index + 1)
 	{
-		// ft_dprintf(2, "pushing to bot stack: index=%d\n", b->head->index);
 		push(b, a, true);
 		rotate(a, NULL, true);
 		*bot_stack += 1;
-		// ft_dprintf(2, "\tbot_stack value =%d\n", *bot_stack);
 		*direction = 0;
 	}
 	else
@@ -89,15 +93,6 @@ int	set_direction(t_stack *a, t_stack *b)
 		return (to_top);
 	to_bot = single_node_distance(b->head, bot);
 	return (get_closest_node(b, top->index, bot->index));
-	// if (to_top < 0)
-	// {
-	// 	to_top += *bot_stack;
-	// 	if (to_top >= 0)
-	// 		return (-1);
-	// }
-		
-
-	// if (to_top * ((to_top > 0) - (to_top < 0)))
 }
 
 int	get_closest_node(t_stack *stack, int top, int bot)
@@ -141,12 +136,9 @@ int	btoa_set_direction(t_stack *b, int target)
 
 void	bring_bottom_stack_up(t_stack *a, int *bot_stack)
 {
-	// ft_dprintf(2, "bot stack reset!\n\n");
-	// ft_dprintf(2, "\tbot_stack value =%d\n", *bot_stack);
 	while (a->head->index == a->head->prev->index + 1)
 	{
 		reverse_rotate(a, NULL, true);
 		*bot_stack -= 1;
-		// ft_dprintf(2, "\tbot_stack value =%d\n", *bot_stack);
 	}
 }
