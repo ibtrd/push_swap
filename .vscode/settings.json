@@ -18,6 +18,11 @@
 		"variant": "c",
 		"stdlib.h": "c",
 		"push_swap.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"bitset": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c",
+		"regex": "c"
 	}
 }

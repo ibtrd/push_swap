@@ -21,7 +21,7 @@
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
 # ifndef PRESORT
-#  define PRESORT 30
+#  define PRESORT 35
 # endif
 
 typedef struct s_node
@@ -54,6 +54,7 @@ void	parse_argv(char **argv, t_stack *a);
 
 //SORTING
 
+int		is_stack_sorted(t_node *head, size_t size);
 void	sort_two_elements(t_stack *stack);
 void	sort_three_elements(t_stack *stack);
 void	sort_up_to_five(t_stack *a, t_stack *b);
@@ -68,14 +69,12 @@ void	set_index(t_stack *stack);
 void	add_to_stack(t_node **head, int value);
 void	set_biggest_and_smallest(t_stack *stack);
 void	clear_stack(t_node *head);
-int		is_stack_sorted(t_node *head);
 int		get_len_to_node(t_node *head, t_node *target);
 t_node	*get_biggest_node(t_stack *stack);
 void	rotation_control(t_stack *a, t_stack *b, int control, bool print);
 
 //UTILS
 void	free_and_exit(t_stack *a, t_stack *b, bool error);
-
 
 //REMOVE
 void	print_both_stacks(t_stack *a, t_stack *b);

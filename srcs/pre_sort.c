@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 14:33:41 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/01 19:13:10 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 02:58:14 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 	int rot_b = 0;
 	
 	set_ranges(chunk, start, end);
-	#include "stdio.h"
-	//dprintf(2, "\n1:%d-%d\n2:%d-%d\n3:%d-%d\n\n", chunk[0][0], chunk[0][1], chunk[1][0], chunk[1][1], chunk[2][0], chunk[2][1]);
-	dprintf(2, "\n1:%f-%f\n2:%f-%f\n3:%f-%f\n\n", chunk[0][0], chunk[0][1], chunk[1][0], chunk[1][1], chunk[2][0], chunk[2][1]);
-	while(yadesrestes(a, chunk[0][0], chunk[1][1]))
+	while(end - start > 3 && i < end - start)
 	{
 		if (ft_isrange(a->head->index, chunk[1][0], chunk[1][1]))
 		{	
@@ -37,16 +34,14 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 				rotate(NULL, b, true);
 				rot_b--;
 			}
-			a->head->chunk_min = chunk[1][0] + 1;
+			a->head->chunk_min = chunk[1][0];
 			push(a, b, true);
-			i++;
 		}
 		else if (ft_isrange(a->head->index, chunk[0][0], chunk[0][1]))
 		{
-			a->head->chunk_min = chunk[0][0] + 1;
+			a->head->chunk_min = chunk[0][0];
 			push(a, b, true);
 			rot_b++;
-			i++;
 		}
 		else if (rot_b)
 		{
@@ -55,15 +50,17 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 		}
 		else
 			rotate(a, NULL, true);
-		if (a->size == 3)
-			break ;
-			
+		i++;		
 	}
-	if (a->size > 3)
+	while (rot_b)
 	{
-		median_presort(a, b, chunk[2][0], chunk[2][1]);
+		rotate(NULL, b, true);
+		rot_b--;
 	}
-	sort_three_elements(a);
+	if (chunk[2][1] - chunk[2][0] > 3)
+		median_presort(a, b, chunk[2][0], chunk[2][1]);
+	else
+		sort_three_elements(a);
 }
 
 void	set_ranges(double chunk[3][2], int start, int end)
@@ -71,7 +68,6 @@ void	set_ranges(double chunk[3][2], int start, int end)
 	double x;
 	
 	x = 100 / (double)PRESORT;
-	//dprintf(2, "\nx = %f\n", x);
 	chunk[0][0] = start;
 	chunk[0][1] = start + (end - start) / x / 2;
 	chunk[1][0] = start + (end - start) / x / 2 + 1;

@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/01 18:37:15 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 02:23:44 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ int	main(int argc, char **argv)
 	parse_argv(argv + 1, &a);
 	if (!a.size)
 		free_and_exit(&a, &b, true);
-	if (is_stack_sorted(a.head))
+	if (is_stack_sorted(a.head, a.size))
 		free_and_exit(&a, &b, false);
 	sort_stack(&a, &b);
 	#include "ft_printf.h"
-	ft_dprintf(2, "<><><><><><><><><><><><><><><><><><><><><><><>");
+	//ft_dprintf(2, "<><><><><><><><><><><><><><><><><><><><><><><>");
 	free_and_exit(&a, &b, false);
 }
 
-void	korean_sort_b_to_a(t_stack *a, t_stack *b);
+void	insert_sort_b_to_a(t_stack *a, t_stack *b);
+void	sort_top_three_a(t_stack *stack);
 
 static void	sort_stack(t_stack *a, t_stack *b)
 {
@@ -50,12 +51,13 @@ static void	sort_stack(t_stack *a, t_stack *b)
 		sort_two_elements(a);
 	else if (a->size == 3)
 		sort_three_elements(a);
+		//sort_top_three_a(a);
 	else if (a->size <= 5)
 		sort_up_to_five(a, b);
 	else
 	{
 		median_presort(a, b, 0, a->size);
-		//korean_sort_b_to_a(a, b);
+		insert_sort_b_to_a(a, b);
 	}
 }
 
