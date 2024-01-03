@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 22:04:06 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/03 17:16:32 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_node_index_range(t_node *head, int min, int max);
 int	set_directionkr(t_stack *a, int min, int max);
 int	btoa_set_direction(t_stack *b, int target);
 
-void	korean_sort(t_stack *a, t_stack *b, int chunk)
+void	progressive_presort(t_stack *a, t_stack *b, int chunk)
 {
 	int	i;
 	int	rb_carry;
@@ -63,6 +63,7 @@ void	korean_sort(t_stack *a, t_stack *b, int chunk)
 				rotate(a, NULL);
 		}
 	}
+	sort_three_elements(a);
 }
 
 int	get_node_index(t_node *head, int index)

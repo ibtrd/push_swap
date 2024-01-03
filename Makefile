@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/02 17:13:57 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/03 16:53:30 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@ NAME_BONUS = checker
 # *** SOURCES **************************************************************** #
 
 SRC_DIR		=	srcs/
-SRC			=	main parsing sorting sorting_utils stacks_utils \
+SRC			=	main \
+				parsing \
+				simplifier simplifier_utils \
+				\
+				sorting sorting_utils stacks_utils \
 				instructions/push \
 				instructions/reverse_rotate \
 				instructions/rotate \
