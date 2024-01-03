@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:47 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 19:34:24 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:41:57 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	instruction_rr(t_node **head);
 
-void	reverse_rotate(t_stack *a, t_stack *b, bool print)
+void	reverse_rotate(t_stack *a, t_stack *b)
 {
 	enum e_operation	i;
 	
@@ -28,9 +28,9 @@ void	reverse_rotate(t_stack *a, t_stack *b, bool print)
 		i = REVERSE_ROTATE_AB;
 	else if (a)
 		i = REVERSE_ROTATE_A;
-	else if (b)
+	else
 		i = REVERSE_ROTATE_B;
-	if (print)
+	if (FORCEPRINT)
 		print_operation(i);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 10:14:50 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 22:04:06 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ void	korean_sort(t_stack *a, t_stack *b, int chunk)
 	while (a->size != 3)
 	{
 		if (a->head->index >= max)
-			rotate(a, NULL, true);
+			rotate(a, NULL);
 		else if (a->head->index <= i)
 		{
 			while (rb_carry)
 			{
-				rotate(NULL, b, true);
+				rotate(NULL, b);
 				rb_carry--;
 			}
-			push(a, b, true);
+			push(a, b);
 			i++;
 			direction = 0;
 		}
 		else if (a->head->index > i && a->head->index < i + chunk)
 		{
-			push(a, b, true);
+			push(a, b);
 			rb_carry++;
 			i++;
 			direction = 0;
@@ -53,19 +53,17 @@ void	korean_sort(t_stack *a, t_stack *b, int chunk)
 			if (direction == 0)
 				direction = set_directionkr(a, 0, i + chunk);
 			if (direction < 0)
-				reverse_rotate(a, NULL, true);
+				reverse_rotate(a, NULL);
 			else if (rb_carry)
 			{
-				rotate(a, b, true);
+				rotate(a, b);
 				rb_carry--;
 			}
 			else
-				rotate(a, NULL, true);
+				rotate(a, NULL);
 		}
 	}
 }
-
-void	set_targets(t_stack *stack, t_node *biggest, t_node *smallest);
 
 int	get_node_index(t_node *head, int index)
 {
@@ -153,4 +151,3 @@ int	get_len_to_node(t_node *head, t_node *target)
 		i++;
 	}
 }
-

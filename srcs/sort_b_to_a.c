@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 17:22:48 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:37:38 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	insert_sort_b_to_a(t_stack *a, t_stack *b)
 			biggest = get_biggest_node(b);
 			direction = single_node_distance(b->head, biggest);
 			while (direction > 0 && b->head->index != biggest->index)
-				rotate(NULL, b, true);
+				rotate(NULL, b);
 			while (direction < 0 && b->head->index != biggest->index)
-				reverse_rotate(NULL, b, true);
-			push(b, a, true);
+				reverse_rotate(NULL, b);
+			push(b, a);
 			direction = set_direction(a, b);
 		}
 		if (direction == 0)
@@ -58,25 +58,25 @@ void	instruction(t_stack *a, t_stack *b, int *direction, int *bot_stack)
 		bring_bottom_stack_up(a, bot_stack);
 	else if (b->head->index == a->head->index - 1)
 	{
-		push(b, a, true);
+		push(b, a);
 		*direction = 0;
 	}
 	else if (!*bot_stack)
 	{
-		push(b, a, true);
-		rotate(a, NULL, true);
+		push(b, a);
+		rotate(a, NULL);
 		*bot_stack += 1;
 		*direction = 0;
 	}
 	else if (b->head->index == a->head->prev->index + 1)
 	{
-		push(b, a, true);
-		rotate(a, NULL, true);
+		push(b, a);
+		rotate(a, NULL);
 		*bot_stack += 1;
 		*direction = 0;
 	}
 	else
-		rotation_control(NULL, b, *direction, true);
+		rotation_control(NULL, b, *direction);
 }
 
 int	set_direction(t_stack *a, t_stack *b)
@@ -138,7 +138,7 @@ void	bring_bottom_stack_up(t_stack *a, int *bot_stack)
 {
 	while (a->head->index == a->head->prev->index + 1)
 	{
-		reverse_rotate(a, NULL, true);
+		reverse_rotate(a, NULL);
 		*bot_stack -= 1;
 	}
 }

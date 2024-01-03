@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 19:09:11 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:34:12 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	instruction_p(t_node **from, t_node **to);
 
-void	push(t_stack *from, t_stack *to, bool print)
+void	push(t_stack *from, t_stack *to)
 {
 	enum e_operation	i;
 
@@ -28,7 +28,7 @@ void	push(t_stack *from, t_stack *to, bool print)
 		i = PUSH_A;
 	else
 		i = PUSH_B;
-	if (print)
+	if (FORCEPRINT)
 		print_operation(i);
 	else
 		operation_to_list(to, i);

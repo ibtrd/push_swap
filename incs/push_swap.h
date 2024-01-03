@@ -24,6 +24,8 @@
 #  define PRESORT 33
 # endif
 
+# define FORCEPRINT 0
+
 typedef struct s_node
 {
 	int				value;
@@ -63,11 +65,20 @@ typedef struct s_op
 	struct s_op			*next;
 }	t_op;
 
-void	swap(t_stack *a, t_stack *b, bool print);
-void	push(t_stack *from, t_stack *to, bool print);
-void	rotate(t_stack *a, t_stack *b, bool print);
-void	reverse_rotate(t_stack *a, t_stack *b, bool print);
+typedef struct s_rotations
+{
+	int	ra;
+	int	rb;
+	int	rr;
+	int	rra;
+	int	rrb;
+	int	rrr;
+}	t_rotations;
 
+void	swap(t_stack *a, t_stack *b);
+void	push(t_stack *from, t_stack *to);
+void	rotate(t_stack *a, t_stack *b);
+void	reverse_rotate(t_stack *a, t_stack *b);
 
 //PARSING
 int		check_argv(char **argv);
@@ -92,7 +103,7 @@ void	set_biggest_and_smallest(t_stack *stack);
 void	clear_stack(t_node *head);
 int		get_len_to_node(t_node *head, t_node *target);
 t_node	*get_biggest_node(t_stack *stack);
-void	rotation_control(t_stack *a, t_stack *b, int control, bool print);
+void	rotation_control(t_stack *a, t_stack *b, int control);
 
 //UTILS
 void	free_and_exit(t_stack *a, t_stack *b, bool error);
@@ -110,5 +121,6 @@ void	op_add_back(t_op **list, t_op *new);
 void	op_clear(t_op **list);
 void	operation_to_list(t_stack *stack, enum e_operation i);
 void	print_operation(enum e_operation i);
+void	print_operation_list(t_op **list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 07:51:53 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 20:27:00 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 22:02:42 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,6 @@ t_op	*op_new(enum e_operation i)
 	return (new);
 }
 
-void	op_add_front(t_op **list, t_op *new)
-{
-	if (!new)
-		return ;
-	if (*list)
-		new->next = *list;
-	*list = new;
-}
-
-void	op_clear(t_op **list)
-{
-	t_op	*temp;
-
-	while (*list)
-	{
-		temp = *list;
-		free(*list);
-		*list = (*list)->next;
-	}
-}
-
 void	op_add_back(t_op **list, t_op *new)
 {
 	static t_op	*tail = NULL;
@@ -59,5 +38,17 @@ void	op_add_back(t_op **list, t_op *new)
 	{
 		tail->next = new;
 		tail = new;
+	}
+}
+
+void	op_clear(t_op **list)
+{
+	t_op	*temp;
+
+	while (*list)
+	{
+		temp = (*list)->next;
+		free(*list);
+		*list = temp;
 	}
 }

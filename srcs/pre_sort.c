@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 14:33:41 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 07:45:09 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:37:25 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,30 @@ void	median_presort(t_stack *a, t_stack *b, int start, int end)
 		{	
 			while (rot_b)
 			{
-				rotate(NULL, b, true);
+				rotate(NULL, b);
 				rot_b--;
 			}
 			a->head->chunk_min = chunk[1][0];
-			push(a, b, true);
+			push(a, b);
 		}
 		else if (ft_isrange(a->head->index, chunk[0][0], chunk[0][1]))
 		{
 			a->head->chunk_min = chunk[0][0];
-			push(a, b, true);
+			push(a, b);
 			rot_b++;
 		}
 		else if (rot_b)
 		{
-			rotate(a, b, true);
+			rotate(a, b);
 			rot_b--;
 		}
 		else
-			rotate(a, NULL, true);
+			rotate(a, NULL);
 		i++;		
 	}
 	while (rot_b)
 	{
-		rotate(NULL, b, true);
+		rotate(NULL, b);
 		rot_b--;
 	}
 	if (chunk[2][1] - chunk[2][0] > 3)

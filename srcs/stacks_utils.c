@@ -6,14 +6,13 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 17:17:41 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/02 20:41:16 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
 #include "push_swap.h"
-
 
 void	init_stacks(t_stack *a, t_stack *b, t_op **list)
 {
@@ -85,24 +84,24 @@ int	is_stack_sorted(t_node *head, size_t size)
 	return (1);
 }
 
-void	rotation_control(t_stack *a, t_stack *b, int control, bool print)
+void	rotation_control(t_stack *a, t_stack *b, int control)
 {
 	if (control < 0)
 	{
 		if (a && b)
-			reverse_rotate(a, b, print);
+			reverse_rotate(a, b);
 		else if (a)
-			reverse_rotate(a, NULL, print);
+			reverse_rotate(a, NULL);
 		else if (b)
-			reverse_rotate(NULL, b, print);
+			reverse_rotate(NULL, b);
 	}
 	else
 	{
 		if (a && b)
-			rotate(a, b, print);
+			rotate(a, b);
 		else if (a)
-			rotate(a, NULL, print);
+			rotate(a, NULL);
 		else if (b)
-			rotate(NULL, b, print);
+			rotate(NULL, b);
 	}
 }
