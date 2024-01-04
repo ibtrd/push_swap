@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simplifier_utils.c                                 :+:      :+:    :+:   */
+/*   presort_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 16:47:42 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:37:27 by ibertran         ###   ########lyon.fr   */
+/*   Created: 2024/01/04 03:09:40 by ibertran          #+#    #+#             */
+/*   Updated: 2024/01/04 03:12:18 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	init_counter(t_rotations *counter)
+void	presort_init(int *range, int stack_size, int *direction, int *rb)
 {
-	counter->ra = 0;
-	counter->rb = 0;
-	counter->rr = 0;
-	counter->rra = 0;
-	counter->rrb = 0;
-	counter->rrr = 0;
-}
-
-int	is_rotation(enum e_operation i)
-{
-	if (i >= ROTATE_A && i <= REVERSE_ROTATE_AB)
-		return (1);
-	return (0);
+	range[0] = 0;
+	range[1] = stack_size - 3;
+	*direction = 0;
+	*rb = 0;
 }

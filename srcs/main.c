@@ -6,18 +6,16 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:35:05 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:12:31 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "push_swap.h"
 
-#include "ft_printf.h"
-
 static void	sort_stack(t_stack *a, t_stack *b);
+static int	chunk_size_formula(int size);
 
 int	main(int argc, char **argv)
 {
@@ -39,11 +37,9 @@ int	main(int argc, char **argv)
 	b.sister = &a.head;
 	sort_stack(&a, &b);
 	if (!FORCEPRINT)
-		simplify_operations(a.operations);
+		simplify_operations(&a);
 	free_and_exit(&a, &b, false);
 }
-
-void	insert_sort_b_to_a(t_stack *a, t_stack *b);
 
 static void	sort_stack(t_stack *a, t_stack *b)
 {
@@ -52,19 +48,15 @@ static void	sort_stack(t_stack *a, t_stack *b)
 		sort_two_elements(a);
 	else if (a->size == 3)
 		sort_three_elements(a);
-	else if (a->size <= 5)
-		sort_up_to_five(a, b);
 	else
 	{
-		if (!PRESORT_MODE)
-			progressive_presort(a, b, chunk_size_formula(a->size));
-		else
-			median_presort(a, b, 0, a->size);
-		insert_sort_b_to_a(a, b);
+		progressive_presort(a, b, chunk_size_formula(a->size));
+		sort_three_elements(a);
+		insert_biggest_sort(a, b);
 	}
 }
 
-int	chunk_size_formula(int size)
+static int	chunk_size_formula(int size)
 {
 	double	chunk;
 
@@ -72,12 +64,22 @@ int	chunk_size_formula(int size)
 	return (chunk);
 }
 
+void	free_and_exit2(t_stack *stack, bool error)
+{
+	op_clear(stack->operations);
+	clear_stack(stack->head);
+	clear_stack(*(stack->sister));
+	if (error)
+		write(STDERR_FILENO, "Error\n", 6);
+	exit(error);
+}
+
 void	free_and_exit(t_stack *a, t_stack *b, bool error)
 {
 	if (a)
 	{
 		op_clear(a->operations);
-		clear_stack(a->head);	
+		clear_stack(a->head);
 	}
 	if (b)
 	{
@@ -85,7 +87,7 @@ void	free_and_exit(t_stack *a, t_stack *b, bool error)
 		clear_stack(b->head);
 	}
 	if (error)
-		write(2, "Error\n", 6);
+		write(STDERR_FILENO, "Error\n", 6);
 	exit(error);
 }
 

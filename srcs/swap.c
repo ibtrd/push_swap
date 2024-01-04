@@ -1,48 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 01:34:47 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 20:41:57 by ibertran         ###   ########lyon.fr   */
+/*   Created: 2023/12/29 01:35:37 by ibertran          #+#    #+#             */
+/*   Updated: 2024/01/04 05:01:20 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "push_swap.h"
-#include "libft.h"
 
-static void	instruction_rr(t_node **head);
+static void	instruction_s(t_node *head);
 
-void	reverse_rotate(t_stack *a, t_stack *b)
+void	swap(t_stack *a, t_stack *b)
 {
 	enum e_operation	i;
-	
+
 	if (a)
-		instruction_rr(&a->head);
+		instruction_s(a->head);
 	if (b)
-		instruction_rr(&b->head);
+		instruction_s(b->head);
 	if (a && b)
-		i = REVERSE_ROTATE_AB;
+		i = SWAP_AB;
 	else if (a)
-		i = REVERSE_ROTATE_A;
+		i = SWAP_A;
 	else
-		i = REVERSE_ROTATE_B;
-	if (FORCEPRINT)
-		print_operation(i);
+		i = SWAP_B;
+	if (a && FORCEPRINT)
+		print_operation(i, a);
+	else if (b && FORCEPRINT)
+		print_operation(i, a);
 	else
 	{
 		if (a)
 			operation_to_list(a, i);
-		else
+		if (b)
 			operation_to_list(b, i);
 	}
 }
 
-static void	instruction_rr(t_node **head)
+static void	instruction_s(t_node *head)
 {
-	if (*head)
-		*head = (*head)->prev;
+	int	temp;
+
+	if (head && head->next)
+	{
+		temp = head->value;
+		head->value = head->next->value;
+		head->next->value = temp;
+		temp = head->index;
+		head->index = head->next->index;
+		head->next->index = temp;
+	}
 }

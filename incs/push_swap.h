@@ -23,14 +23,10 @@
 # define PRESORT 33
 
 # ifndef FORCEPRINT
-#  define FORCEPRINT 0
+#  define FORCEPRINT 1
 # endif
 
-# ifndef PRESORT_MODE
-#  define PRESORT_MODE 0
-# endif
-
-enum e_operation
+typedef enum e_operation
 {
 	SWAP_A,
 	SWAP_B,
@@ -43,7 +39,7 @@ enum e_operation
 	REVERSE_ROTATE_A,
 	REVERSE_ROTATE_B,
 	REVERSE_ROTATE_AB,
-};
+}	t_opid;
 
 typedef struct s_node
 {
@@ -79,59 +75,49 @@ typedef struct s_rotations
 	int	rrr;
 }	t_rotations;
 
-void	swap(t_stack *a, t_stack *b);
-void	push(t_stack *from, t_stack *to);
-void	rotate(t_stack *a, t_stack *b);
-void	reverse_rotate(t_stack *a, t_stack *b);
+//MAIN
+int		is_stack_sorted(t_node *head, size_t size);
+void	free_and_exit(t_stack *a, t_stack *b, bool error);
+void	free_and_exit2(t_stack *stack, bool error);
 
 //PARSING
 int		check_argv(char **argv);
 void	parse_argv(char **argv, t_stack *a);
 
-//SORTING
-
-int		is_stack_sorted(t_node *head, size_t size);
-void	sort_two_elements(t_stack *stack);
-void	sort_three_elements(t_stack *stack);
-void	sort_up_to_five(t_stack *a, t_stack *b);
-void	sort_n_elements(t_stack *a, t_stack *b, int div);
-
-void	korean_sort_back(t_stack *a, t_stack *b, int chunck);
-
 //STACKS
 void	init_stacks(t_stack *a, t_stack *b, t_op **list);
-void	set_index(t_stack *stack);
 void	add_to_stack(t_node **head, int value);
-void	set_biggest_and_smallest(t_stack *stack);
 void	clear_stack(t_node *head);
-int		get_len_to_node(t_node *head, t_node *target);
-t_node	*get_biggest_node(t_stack *stack);
-void	rotation_control(t_stack *a, t_stack *b, int control);
+void	set_index(t_stack *stack);
 
-//UTILS
-void	free_and_exit(t_stack *a, t_stack *b, bool error);
-
-//REMOVE
-void	print_both_stacks(t_stack *a, t_stack *b);
-
-//MEDIAN SORTING
-void	median_presort(t_stack *a, t_stack *b, int start, int end);
-
-
-
+//TINY SORT
+void	sort_two_elements(t_stack *a);
+void	sort_three_elements(t_stack *a);
 
 //PRESORT
 void	progressive_presort(t_stack *a, t_stack *b, int chunck);
-int		chunk_size_formula(int size);
+void	presort_init(int *range, int stack_size, int *direction, int *rb);
+void	rotation_control(t_stack *a, t_stack *b, int direction);
+
+//INSERT SORT
+void	insert_biggest_sort(t_stack *a, t_stack *b);
+t_node	*get_biggest_node(t_stack *stack);
+t_node	*get_single_node(t_stack *stack, int target);
+int		single_node_distance(t_node *head, t_node *target);
+
+//OPERATIONS
+void	swap(t_stack *a, t_stack *b);
+void	push(t_stack *from, t_stack *to);
+void	rotate(t_stack *a, t_stack *b);
+void	reverse_rotate(t_stack *a, t_stack *b);
 
 //OPERATION LISTS
 void	operation_to_list(t_stack *stack, enum e_operation i);
-void	print_operation(enum e_operation i);
-void	print_operation_list(t_op **list);
+void	print_operation(t_opid i, t_stack *a);
 void	op_clear(t_op **list);
 
 //SIMPLIFIER
-void	simplify_operations(t_op **list);
+void	simplify_operations(t_stack *a);
 void	init_counter(t_rotations *counter);
 int		is_rotation(enum e_operation i);
 

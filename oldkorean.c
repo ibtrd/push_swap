@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   korean_sort.c                                      :+:      :+:    :+:   */
+/*   progressive_presort.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:16:32 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/03 20:50:06 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,54 @@
 
 int	get_node_index(t_node *head, int index);
 int	get_node_index_range(t_node *head, int min, int max);
-int	set_directionkr(t_stack *a, int min, int max);
+int	set_directionkr(t_stack *a, int max);
 int	btoa_set_direction(t_stack *b, int target);
 
 void	progressive_presort(t_stack *a, t_stack *b, int chunk)
 {
 	int	i;
 	int	rb_carry;
-	int direction = 0;
+	int direction;
 	int max = a->size - 3;
 
 	i = 0;
 	rb_carry = 0;
+	direction = set_directionkr(a, i + chunk);
 	while (a->size != 3)
 	{
-		if (a->head->index >= max)
-			rotate(a, NULL);
-		else if (a->head->index <= i)
+		if (a->head->index <= i)
 		{
-			while (rb_carry)
+			while(rb_carry)
 			{
 				rotate(NULL, b);
 				rb_carry--;
 			}
 			push(a, b);
 			i++;
-			direction = 0;
+			direction = set_directionkr(a, i + chunk);
 		}
-		else if (a->head->index > i && a->head->index < i + chunk)
+		else if (a->head->index < i + chunk && a->head->index < max)
 		{
 			push(a, b);
-			rb_carry++;
+			if (b->size > 1)
+				rb_carry++;
 			i++;
-			direction = 0;
+			direction = set_directionkr(a, i + chunk);
 		}
 		else
 		{
-			if (direction == 0)
-				direction = set_directionkr(a, 0, i + chunk);
-			if (direction < 0)
-				reverse_rotate(a, NULL);
-			else if (rb_carry)
+			if (rb_carry && direction >= 0)
 			{
 				rotate(a, b);
 				rb_carry--;
 			}
+			else if (rb_carry)
+			{
+				rotate(NULL, b);
+				rb_carry--;		
+			}
+			else if (direction < 0)
+				reverse_rotate(a, NULL);
 			else
 				rotate(a, NULL);
 		}
@@ -66,6 +69,24 @@ void	progressive_presort(t_stack *a, t_stack *b, int chunk)
 	sort_three_elements(a);
 }
 
+int	set_directionkr(t_stack *a, int max)
+{
+	t_node	*curr;
+	int		i;
+
+	i = 0;
+	curr = a->head;
+	while (i < a->size && curr->index > max)
+	{
+		i++;
+		curr = curr->next;
+	}
+	#include "ft_printf.h"
+	ft_dprintf(2, "DIRECTION=%d\n", (i < a->size / 2));
+	if (i < a->size / 2)
+		return (1);
+	return (-1);
+}
 int	get_node_index(t_node *head, int index)
 {
 	t_node	*rot;
@@ -115,22 +136,6 @@ int	get_node_index_range(t_node *head, int min, int max)
 	}
 }
 
-int	set_directionkr(t_stack *a, int min, int max)
-{
-	t_node	*curr;
-	int		i;
-
-	i = 0;
-	curr = a->head;
-	while (i < a->size && (curr->index < min || curr->index > max))
-	{
-		i++;
-		curr = curr->next;
-	}
-	if (i < a->size / 2)
-		return (1);
-	return (-1);
-}
 
 int	get_len_to_node(t_node *head, t_node *target)
 {

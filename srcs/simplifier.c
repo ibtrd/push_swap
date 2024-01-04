@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:01 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 16:52:23 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:11:08 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,19 @@
 static t_op	*count_rotations(t_op *curr, t_rotations *counter);
 static void	cancel_opposites_rotations(t_rotations *counter);
 static void	merge_dual_rotations(t_rotations *counter);
-static void	print_rotations(t_rotations *counter);
+static void	print_rotations(t_rotations *counter, t_stack *a);
 
-
-void	simplify_operations(t_op **list)
+void	simplify_operations(t_stack *a)
 {
 	t_op		*curr;
 	t_rotations	counter;
 
-	curr = *list;
+	curr = *(a->operations);
 	while (curr)
 	{
 		if (!is_rotation(curr->op))
 		{
-			print_operation(curr->op);
+			print_operation(curr->op, a);
 			curr = curr->next;
 		}
 		else
@@ -37,7 +36,7 @@ void	simplify_operations(t_op **list)
 			curr = count_rotations(curr, &counter);
 			cancel_opposites_rotations(&counter);
 			merge_dual_rotations(&counter);
-			print_rotations(&counter);
+			print_rotations(&counter, a);
 		}
 	}
 }
@@ -98,18 +97,18 @@ static void	merge_dual_rotations(t_rotations *counter)
 	}
 }
 
-static void	print_rotations(t_rotations *counter)
+static void	print_rotations(t_rotations *counter, t_stack *a)
 {
 	while (counter->rr--)
-		print_operation(ROTATE_AB);
+		print_operation(ROTATE_AB, a);
 	while (counter->ra--)
-		print_operation(ROTATE_A);
+		print_operation(ROTATE_A, a);
 	while (counter->rb--)
-		print_operation(ROTATE_B);
+		print_operation(ROTATE_B, a);
 	while (counter->rrr--)
-		print_operation(REVERSE_ROTATE_AB);
+		print_operation(REVERSE_ROTATE_AB, a);
 	while (counter->rra--)
-		print_operation(REVERSE_ROTATE_A);
+		print_operation(REVERSE_ROTATE_A, a);
 	while (counter->rrb--)
-		print_operation(REVERSE_ROTATE_B);
+		print_operation(REVERSE_ROTATE_B, a);
 }

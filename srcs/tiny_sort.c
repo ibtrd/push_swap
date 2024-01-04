@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 00:10:19 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:18:38 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 04:32:41 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,6 @@ void	sort_three_elements(t_stack *a)
 		rotate(a, NULL);
 	else if (a->head->next->index == biggest->index)
 		reverse_rotate(a, NULL);
-	if (a->head->index > a->head->next->index)
-		swap(a, NULL);
-}
-
-void	sort_up_to_five(t_stack *a, t_stack *b)
-{
-	while (b->size <= 1)
-	{
-		if (a->head->index == 0 || a->head->index == 1)
-			push(a, b);
-		else
-			rotate(a, b);
-	}
-	sort_three_elements(a);
-	push(b, a);
-	push(b, a);
 	if (a->head->index > a->head->next->index)
 		swap(a, NULL);
 }

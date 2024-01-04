@@ -6,11 +6,10 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 20:34:12 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:01:48 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "push_swap.h"
 
 static void	instruction_p(t_node **from, t_node **to);
@@ -29,7 +28,7 @@ void	push(t_stack *from, t_stack *to)
 	else
 		i = PUSH_B;
 	if (FORCEPRINT)
-		print_operation(i);
+		print_operation(i, from);
 	else
 		operation_to_list(to, i);
 }

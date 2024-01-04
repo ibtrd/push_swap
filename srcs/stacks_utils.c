@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/02 20:41:16 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 04:37:49 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	add_to_stack(t_node **head, int value)
 	}
 }
 
-
 void	clear_stack(t_node *head)
 {
 	t_node	*temp;
@@ -84,24 +83,3 @@ int	is_stack_sorted(t_node *head, size_t size)
 	return (1);
 }
 
-void	rotation_control(t_stack *a, t_stack *b, int control)
-{
-	if (control < 0)
-	{
-		if (a && b)
-			reverse_rotate(a, b);
-		else if (a)
-			reverse_rotate(a, NULL);
-		else if (b)
-			reverse_rotate(NULL, b);
-	}
-	else
-	{
-		if (a && b)
-			rotate(a, b);
-		else if (a)
-			rotate(a, NULL);
-		else if (b)
-			rotate(NULL, b);
-	}
-}
