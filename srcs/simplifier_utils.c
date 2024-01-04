@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:47:42 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:37:27 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:30:40 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_counter(t_rotations *counter)
 	counter->rrr = 0;
 }
 
-int	is_rotation(enum e_operation i)
+int	is_rotation(t_opid i)
 {
 	if (i >= ROTATE_A && i <= REVERSE_ROTATE_AB)
 		return (1);

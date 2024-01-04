@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:35:37 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 05:01:20 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:25:10 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	instruction_s(t_node *head);
 
 void	swap(t_stack *a, t_stack *b)
 {
-	enum e_operation	i;
+	t_opid	i;
 
 	if (a)
 		instruction_s(a->head);

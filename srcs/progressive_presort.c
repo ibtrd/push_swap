@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_presort.c                                      :+:      :+:    :+:   */
+/*   progressive_presort.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:53:53 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 03:11:41 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:37:23 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
 
-#include "ft_printf.h" //REMOVE
-
-// static void	set_range(int *range, int stack_size);
 static void	presort_push_top(t_stack *a, t_stack *b, int *rb, int *min);
 static void	presort_push_bot(t_stack *a, t_stack *b, int *rb, int *min);
 static int	presort_direction(t_stack *a, int range);

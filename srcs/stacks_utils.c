@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 04:37:49 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:44:30 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	init_stacks(t_stack *a, t_stack *b, t_op **list)
 	a->head = NULL;
 	a->size = 0;
 	a->operations = list;
+	a->sister = b;
 	b->id = 'b';
 	b->head = NULL;
 	b->size = 0;
 	b->operations = list;
+	b->sister = a;
 }
 
 void	add_to_stack(t_node **head, int value)

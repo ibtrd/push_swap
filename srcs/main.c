@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 05:21:09 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:40:34 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	main(int argc, char **argv)
 		free_and_exit(&a, true);
 	if (is_stack_sorted(a.head, a.size))
 		free_and_exit(&a, false);
-	a.sister = &b.head;
-	b.sister = &a.head;
 	sort_stack(&a, &b);
 	if (!FORCEPRINT)
 		simplify_operations(&a);
@@ -68,7 +66,7 @@ void	free_and_exit(t_stack *stack, bool error)
 {
 	op_clear(stack->operations);
 	clear_stack(stack->head);
-	clear_stack(*(stack->sister));
+	clear_stack(stack->sister->head);
 	if (error)
 		write(STDERR_FILENO, "Error\n", 6);
 	exit(error);

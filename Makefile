@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/04 05:13:26 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/04 05:24:49 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ INCLUDES	=	incs \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		+=	-Wall -Wextra -Werror -O3
+CFLAGS		+=	-Wall -Wextra -Werror -g3
 CPPFLAGS	= 	-MMD -MP $(addprefix -I, $(INCLUDES))
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_PATH)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
