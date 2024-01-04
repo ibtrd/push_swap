@@ -77,8 +77,7 @@ typedef struct s_rotations
 
 //MAIN
 int		is_stack_sorted(t_node *head, size_t size);
-void	free_and_exit(t_stack *a, t_stack *b, bool error);
-void	free_and_exit2(t_stack *stack, bool error);
+void	free_and_exit(t_stack *stack, bool error);
 
 //PARSING
 int		check_argv(char **argv);

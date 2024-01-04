@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 05:12:31 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:21:09 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int	main(int argc, char **argv)
 		return (0);
 	init_stacks(&a, &b, &op_list);
 	if (!check_argv(argv + 1))
-		free_and_exit(&a, &b, true);
+		free_and_exit(&a, true);
 	parse_argv(argv + 1, &a);
 	if (!a.size)
-		free_and_exit(&a, &b, true);
+		free_and_exit(&a, true);
 	if (is_stack_sorted(a.head, a.size))
-		free_and_exit(&a, &b, false);
+		free_and_exit(&a, false);
 	a.sister = &b.head;
 	b.sister = &a.head;
 	sort_stack(&a, &b);
 	if (!FORCEPRINT)
 		simplify_operations(&a);
-	free_and_exit(&a, &b, false);
+	free_and_exit(&a, false);
 }
 
 static void	sort_stack(t_stack *a, t_stack *b)
@@ -64,7 +64,7 @@ static int	chunk_size_formula(int size)
 	return (chunk);
 }
 
-void	free_and_exit2(t_stack *stack, bool error)
+void	free_and_exit(t_stack *stack, bool error)
 {
 	op_clear(stack->operations);
 	clear_stack(stack->head);
@@ -73,21 +73,3 @@ void	free_and_exit2(t_stack *stack, bool error)
 		write(STDERR_FILENO, "Error\n", 6);
 	exit(error);
 }
-
-void	free_and_exit(t_stack *a, t_stack *b, bool error)
-{
-	if (a)
-	{
-		op_clear(a->operations);
-		clear_stack(a->head);
-	}
-	if (b)
-	{
-		op_clear(b->operations);
-		clear_stack(b->head);
-	}
-	if (error)
-		write(STDERR_FILENO, "Error\n", 6);
-	exit(error);
-}
-

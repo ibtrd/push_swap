@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 07:51:53 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/03 17:11:50 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:21:47 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	operation_to_list(t_stack *stack, enum e_operation i)
 
 	new = op_new(i);
 	if (!new)
-		free_and_exit(stack, NULL, true);
+		free_and_exit(stack, true);
 	op_add_back(stack->operations, new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 04:35:18 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 05:21:40 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	parse_one_argument(char *str, t_stack *a)
 		{
 			value = get_value(str + i, a);
 			if (is_duplicate_value(a, value))
-				free_and_exit(a, NULL, true);
+				free_and_exit(a, true);
 			add_to_stack(&(a->head), value);
 			a->size += 1;
 		}
@@ -95,10 +95,10 @@ static int	get_value(char *str, t_stack *a)
 	{
 		if (sign == 1 && (INT_MAX / 10 < nb \
 			|| 10 * nb > INT_MAX - (str[i] - 48)))
-			free_and_exit(a, NULL, true);
+			free_and_exit(a, true);
 		if (sign == -1 && (INT_MIN / 10 > -nb \
 			|| 10 * -nb < INT_MIN + (str[i] - 48)))
-			free_and_exit(a, NULL, true);
+			free_and_exit(a, true);
 		nb = nb * 10 + str[i] - 48;
 		i++;
 	}
