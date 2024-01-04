@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_utils.c                                 :+:      :+:    :+:   */
+/*   reverse_rotate_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/02 17:02:44 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 08:52:53 by ibertran         ###   ########lyon.fr   */
+/*   Created: 2023/12/29 01:34:47 by ibertran          #+#    #+#             */
+/*   Updated: 2024/01/04 09:19:39 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "push_swap.h"
 
-void	print_operation(t_opid i, t_stack *a)
-{
-	static const int	len[] = {3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4};
-	static const char	*str[] = {
-		"sa\n", "sb\n", "ss\n",
-		"pa\n", "pb\n",
-		"ra\n", "rb\n", "rr\n",
-		"rra\n", "rrb\n", "rrr\n"};
+static void	instruction_rr(t_node **head);
 
-	if (write(STDOUT_FILENO, str[i], len[i]) == -1)
-		free_and_exit(a, true);
+void	reverse_rotate(t_stack *a, t_stack *b)
+{
+	if (a)
+		instruction_rr(&a->head);
+	if (b)
+		instruction_rr(&b->head);
+}
+
+static void	instruction_rr(t_node **head)
+{
+	if (*head)
+		*head = (*head)->prev;
 }

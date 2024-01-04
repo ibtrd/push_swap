@@ -20,8 +20,6 @@
 # define SEP "\t\n\v\f\r "
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
-# define PRESORT 33
-
 # ifndef FORCEPRINT
 #  define FORCEPRINT 1
 # endif
@@ -81,7 +79,7 @@ int		is_stack_sorted(t_node *head, size_t size);
 int		single_node_distance(t_node *head, t_node *target);
 t_node	*get_biggest_node(t_stack *stack);
 t_node	*get_single_node(t_stack *stack, int target);
-void	add_to_stack(t_node **head, int value);
+void	add_to_stack(t_stack *a, int value);
 void	clear_stack(t_node *head);
 void	free_and_exit(t_stack *stack, bool error);
 void	init_counter(t_rotations *counter);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   push_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:34:15 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:20:32 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 09:20:20 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,11 @@ static void	instruction_p(t_node **from, t_node **to);
 
 void	push(t_stack *from, t_stack *to)
 {
-	t_opid	i;
-
 	instruction_p(&from->head, &to->head);
 	to->size++;
 	from->size--;
 	if (!from->size)
 		from->head = NULL;
-	if (to->id == 'a')
-		i = PUSH_A;
-	else
-		i = PUSH_B;
-	if (FORCEPRINT)
-		print_operation(i, from);
-	else
-		operation_to_list(to, i);
 }
 
 static void	instruction_p(t_node **from, t_node **to)

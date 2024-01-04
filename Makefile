@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/04 05:24:49 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/04 09:15:30 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,22 +15,41 @@ NAME_BONUS = checker
 
 # *** SOURCES **************************************************************** #
 
-SRC_DIR		=	srcs/
-SRC			=	main \
-				parsing \
-				stacks_utils \
-				sorting_utils \
-				swap push rotate reverse_rotate \
-				tiny_sort \
-				progressive_presort progressive_presort_utils \
-				insert_biggest_sort \
-				operations_list operations_utils \
-				simplifier simplifier_utils
+SRC_DIR	= srcs/
+SRC	= \
+	main \
+	parsing \
+	stacks_utils \
+	sorting_utils \
+	swap \
+	push \
+	rotate \
+	reverse_rotate \
+	tiny_sort \
+	progressive_presort \
+	progressive_presort_utils \
+	insert_biggest_sort \
+	operations_list \
+	operations_utils \
+	simplifier \
+	simplifier_utils
 
-SRC_BONUS	=	bonus/main_bonus
+SRC_BONUS_DIR =	bonus/
+SRC_BONUS = \
+	main \
+	parsing \
+	stacks_utils \
+	instructions \
+	swap \
+	push \
+	rotate \
+	reverse_rotate \
 
-SRCS 		=	$(addsuffix .c, $(SRC))
-SRCS_BONUS 	=	$(addsuffix .c, $(SRC_BONUS))
+SRCS = \
+	$(addsuffix .c, $(SRC))
+	
+SRCS_BONUS = \
+	$(addprefix $(SRC_BONUS_DIR), $(addsuffix _bonus.c, $(SRC_BONUS)))
 
 # *** OBJECTS **************************************************************** #
 
@@ -60,10 +79,10 @@ MKDIR 		= 	mkdir -p $(@D)
 
 # *** TARGETS **************************************************************** #
 
-all : $(NAME) 
+all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(LIBS_PATH) $(OBJS)
-	$(CC) $(CFLAGS) $(DEFINE) $(CPPFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 	@echo "$(BLUE) $(NAME) has been created! $(RESET)"
 
 $(BUILD_DIR)%.o : $(SRC_DIR)%.c
@@ -71,13 +90,9 @@ $(BUILD_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(LIBS_PATH): FORCE
-	$(MAKE) -C $(dir $(@))
+	$(MAKE) -C $(@D)
 
 bonus : $(NAME_BONUS)
-
-simplifier :
-	$(RM) $(NAME)
-	$(MAKE) push_swap DEFINE="-D FORCEPRINT=0"
 
 $(NAME_BONUS) : $(LIBS_PATH) $(OBJS_BONUS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS_BONUS) $(LDFLAGS) $(LDLIBS) -o $(NAME_BONUS) 
@@ -94,7 +109,7 @@ fclean :
 	$(MAKE) -C $(dir $(LIBS_PATH)) fclean
 	rm -rf $(BUILD_DIR)
 	$(RM) $(NAME) $(NAME_BONUS)
-	@echo "$(YELLOW) $(NAME) removed! $(RESET)"
+	@echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
 	
 re : fclean
 	$(MAKE)

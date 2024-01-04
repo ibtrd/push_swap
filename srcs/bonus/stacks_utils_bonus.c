@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stacks_utils.c                                     :+:      :+:    :+:   */
+/*   stacks_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 22:38:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:32:45 by ibertran         ###   ########lyon.fr   */
+/*   Created: 2024/01/04 07:20:54 by ibertran          #+#    #+#             */
+/*   Updated: 2024/01/04 09:40:37 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <limits.h>
-#include "push_swap.h"
+#include "checker_bonus.h"
 
-void	init_stacks(t_stack *a, t_stack *b, t_op **list)
+void	init_stacks(t_stack *a, t_stack *b)
 {
-	*list = NULL;
 	a->id = 'a';
 	a->head = NULL;
 	a->size = 0;
-	a->operations = list;
 	a->sister = b;
 	b->id = 'b';
 	b->head = NULL;
 	b->size = 0;
-	b->operations = list;
 	b->sister = a;
 }
 
@@ -84,4 +80,3 @@ int	is_stack_sorted(t_node *head, size_t size)
 	}
 	return (1);
 }
-
