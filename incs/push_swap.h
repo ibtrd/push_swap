@@ -21,8 +21,25 @@
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
 # ifndef FORCEPRINT
-#  define FORCEPRINT 1
+#  define FORCEPRINT 0
 # endif
+
+typedef struct s_stack
+{
+	char			id;
+	struct s_node	*head;
+	int				size;
+	struct s_op		**operations;
+	struct s_stack	*sister;
+}	t_stack;
+
+typedef struct s_node
+{
+	int				value;
+	int				index;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
 
 typedef enum e_opid
 {
@@ -38,24 +55,6 @@ typedef enum e_opid
 	REVERSE_ROTATE_B,
 	REVERSE_ROTATE_AB
 }	t_opid;
-
-typedef struct s_node
-{
-	int				value;
-	int				index;
-	int				chunk_min;
-	struct s_node	*prev;
-	struct s_node	*next;
-}	t_node;
-
-typedef struct s_stack
-{
-	char			id;
-	struct s_node	*head;
-	int				size;
-	struct s_op		**operations;
-	struct s_stack	*sister;
-}	t_stack;
 
 typedef struct s_op
 {
@@ -88,7 +87,7 @@ void	insert_biggest_sort(t_stack *a, t_stack *b);
 void	op_clear(t_op **list);
 void	operation_to_list(t_stack *stack, t_opid i);
 void	parse_argv(char **argv, t_stack *a);
-void	presort_init(int *range, int stack_size, int *direction, int *rb);
+void	presort_init(int *range, int stack_size, int *direction);
 void	print_operation(t_opid i, t_stack *a);
 void	progressive_presort(t_stack *a, t_stack *b, int chunck);
 void	push(t_stack *from, t_stack *to);

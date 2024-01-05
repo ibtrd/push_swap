@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 23:42:59 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 03:14:50 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 05:08:38 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # define SEP "\t\n\v\f\r "
 # define SEP_AND_SIGN "\t\n\v\f\r +-"
 
-typedef struct s_node
-{
-	int				value;
-	struct s_node	*prev;
-	struct s_node	*next;
-}	t_node;
-
 typedef struct s_stack
 {
 	char			id;
@@ -34,6 +27,13 @@ typedef struct s_stack
 	int				size;
 	struct s_stack	*sister;
 }	t_stack;
+
+typedef struct s_node
+{
+	int				value;
+	struct s_node	*prev;
+	struct s_node	*next;
+}	t_node;
 
 typedef enum e_opid
 {
