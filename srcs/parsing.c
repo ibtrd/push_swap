@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 03:53:25 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 04:28:36 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	parse_argv(char **argv, t_stack *a)
 	while (argv[i])
 	{
 		if (!argv[i][0])
+			free_and_exit(a, true);
 		parse_one_argument(argv[i], a);
 		i++;
 	}
@@ -60,14 +61,17 @@ static void	parse_one_argument(char *str, t_stack *a)
 {
 	int		i;
 	int		value;
+	bool	empty;
 
 	i = 0;
+	empty = true;
 	while (str[i])
 	{
 		while (ft_ischarset(str[i], SEP))
 			i++;
 		if (str[i])
 		{
+			empty = false;
 			value = get_value(str + i, a);
 			if (is_duplicate_value(a, value))
 				free_and_exit(a, true);
@@ -77,6 +81,8 @@ static void	parse_one_argument(char *str, t_stack *a)
 		while (str[i] && !ft_ischarset(str[i], SEP))
 			i++;
 	}
+	if (empty)
+		free_and_exit(a, true);
 }
 
 static int	get_value(char *str, t_stack *a)

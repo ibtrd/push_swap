@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 05:40:34 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 04:24:49 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int argc, char **argv)
 
 static void	sort_stack(t_stack *a, t_stack *b)
 {
+	int	chunk;
+
 	set_index(a);
 	if (a->size == 2)
 		sort_two_elements(a);
@@ -48,7 +50,8 @@ static void	sort_stack(t_stack *a, t_stack *b)
 		sort_three_elements(a);
 	else
 	{
-		progressive_presort(a, b, chunk_size_formula(a->size));
+		chunk = chunk_size_formula(a->size);
+		progressive_presort(a, b, chunk);
 		sort_three_elements(a);
 		insert_biggest_sort(a, b);
 	}
