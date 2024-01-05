@@ -6,11 +6,12 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/05 07:06:40 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/05 07:10:45 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+
 NAME_BONUS = checker
 
 # *** SOURCES **************************************************************** #
@@ -91,7 +92,7 @@ all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(LIBS_PATH) $(OBJS)
 	$(CC) $(ALL_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
-	@echo "$(BLUE) $(NAME) has been created! $(RESET)"
+	@echo "$(BLUE) $(NAME) has been built! $(RESET)"
 
 $(BUILD_DIR)%.o : $(SRC_DIR)%.c
 	@$(MKDIR)
@@ -104,7 +105,7 @@ bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(LIBS_PATH) $(OBJS_BONUS)
 	$(CC) $(ALL_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS) 
-	@echo "$(BLUE) $(NAME_BONUS) has been created! $(RESET)"
+	@echo "$(BLUE) $(NAME_BONUS) has been built! $(RESET)"
 
 -include $(DEPS)
 
