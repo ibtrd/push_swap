@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/04 09:15:30 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/04 23:17:59 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,9 @@ SRCS_BONUS = \
 BUILD_DIR	=	.build/
 
 OBJS 		=	$(SRCS:%.c=$(BUILD_DIR)%.o)
+
 OBJS_BONUS	=	$(SRCS_BONUS:%.c=$(BUILD_DIR)%.o)
+
 DEPS		=	$(OBJS:%.o=%.d) \
 				$(OBJS_BONUS:%.o=%.d)
 
@@ -70,7 +72,7 @@ INCLUDES	=	incs \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		+=	-Wall -Wextra -Werror -g3
+CFLAGS		+=	-Wall -Wextra -Werror -O3
 CPPFLAGS	= 	-MMD -MP $(addprefix -I, $(INCLUDES))
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_PATH)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
@@ -113,10 +115,13 @@ fclean :
 	
 re : fclean
 	$(MAKE)
+
+debug :
+	$(MAKE) CFLAGS="-Wall -Wextra -Werror -g3"
 	
 # *** SPECIAL TARGETS ******************************************************** #
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re debug
 
 FORCE :
 

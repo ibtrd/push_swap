@@ -6,12 +6,12 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:35:42 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/04 18:29:01 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
-#include "push_swap.h"
+#include "checker_bonus.h"
 #include "libft.h"
 
 int	check_argv(char **argv)

@@ -6,11 +6,11 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:35:13 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:21:47 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 00:06:49 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 static void	instruction_r(t_node **head);
 

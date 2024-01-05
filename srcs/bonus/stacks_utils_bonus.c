@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 07:20:54 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:40:37 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 03:06:02 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ void	clear_stack(t_node *head)
 	}
 }
 
-int	is_stack_sorted(t_node *head, size_t size)
+bool	is_stack_sorted(t_node *head)
 {
 	t_node	*curr;
-	size_t	i;
+	int		i;
 
 	curr = head;
 	i = 0;
-	while (i < size)
+	while (curr->next != head)
 	{
 		if (curr->value > curr->next->value)
-			return (0);
+			return (false);
 		curr = curr->next;
 	}
-	return (1);
+	return (true);
 }
