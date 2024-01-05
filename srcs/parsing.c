@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 09:33:55 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 03:53:25 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	parse_argv(char **argv, t_stack *a)
 	i = 0;
 	while (argv[i])
 	{
+		if (!argv[i][0])
 		parse_one_argument(argv[i], a);
 		i++;
 	}

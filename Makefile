@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/04 23:17:59 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/05 03:28:14 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,10 +118,15 @@ re : fclean
 
 debug :
 	$(MAKE) CFLAGS="-Wall -Wextra -Werror -g3"
+
+norminette :
+	$(MAKE) $@ -C $(dir $(LIBS_PATH))
+	norminette $(SRC_DIR)
+	norminette $(INCLUDES)
 	
 # *** SPECIAL TARGETS ******************************************************** #
 
-.PHONY : all clean fclean re debug
+.PHONY : all clean fclean re debug norminette
 
 FORCE :
 

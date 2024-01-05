@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:02:44 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 03:13:44 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 03:20:50 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <errno.h>
 #include "checker_bonus.h"
 #include "libft.h"
-
 
 static int	check_input(char *input, t_stack *a, t_stack *b);
 static void	other_operations(t_opid i, t_stack *a, t_stack *b);

@@ -6,13 +6,11 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 01:35:37 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 02:30:28 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 03:20:39 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
-
-	#include <stdio.h>
 
 static void	instruction_s(t_node *head);
 
