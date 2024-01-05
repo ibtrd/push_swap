@@ -2,7 +2,8 @@
 	"files.exclude": {
 		"checker_linux": true,
 		"push_swap": true,
-		".build": true
+		".build": true,
+		"libft/.build": true
 	},
 	"files.associations": {
 		"optional": "c",

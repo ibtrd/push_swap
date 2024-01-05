@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 04:24:49 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/05 05:28:35 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	sort_stack(t_stack *a, t_stack *b)
 		sort_two_elements(a);
 	else if (a->size == 3)
 		sort_three_elements(a);
+	else if (a->size < 6)
+		sort_up_to_five(a, b);
 	else
 	{
 		chunk = chunk_size_formula(a->size);

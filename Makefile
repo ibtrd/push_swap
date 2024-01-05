@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/05 03:28:14 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/05 07:06:40 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,41 +15,43 @@ NAME_BONUS = checker
 
 # *** SOURCES **************************************************************** #
 
+SRCS = \
+	$(addsuffix .c, $(SRC))
+
 SRC_DIR	= srcs/
 SRC	= \
-	main \
-	parsing \
-	stacks_utils \
-	sorting_utils \
-	swap \
-	push \
-	rotate \
-	reverse_rotate \
-	tiny_sort \
-	progressive_presort \
-	progressive_presort_utils \
 	insert_biggest_sort \
+	main \
 	operations_list \
 	operations_utils \
+	parsing \
+	progressive_presort \
+	progressive_presort_utils \
+	push \
+	reverse_rotate \
+	rotate \
 	simplifier \
-	simplifier_utils
+	simplifier_utils \
+	sorting_utils \
+	stacks_utils \
+	swap \
+	tiny_sort \
+
+# *** SOURCES BONUS ********************************************************** #
+
+SRCS_BONUS = \
+	$(addprefix $(SRC_BONUS_DIR), $(addsuffix _bonus.c, $(SRC_BONUS)))
 
 SRC_BONUS_DIR =	bonus/
 SRC_BONUS = \
+	instructions \
 	main \
 	parsing \
-	stacks_utils \
-	instructions \
-	swap \
 	push \
-	rotate \
 	reverse_rotate \
-
-SRCS = \
-	$(addsuffix .c, $(SRC))
-	
-SRCS_BONUS = \
-	$(addprefix $(SRC_BONUS_DIR), $(addsuffix _bonus.c, $(SRC_BONUS)))
+	rotate \
+	stacks_utils \
+	swap \
 
 # *** OBJECTS **************************************************************** #
 
@@ -72,10 +74,14 @@ INCLUDES	=	incs \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		+=	-Wall -Wextra -Werror -O3
-CPPFLAGS	= 	-MMD -MP $(addprefix -I, $(INCLUDES))
+CC_OPTION	= 	-O3
+CFLAGS		=	-Wall -Wextra -Werror $(CC_OPTION) -MMD -MP
+
+CPPFLAGS	= 	$(addprefix -I, $(INCLUDES))
 LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_PATH)))
 LDLIBS		=	$(addprefix -l, $(LIBS))
+
+ALL_FLAGS	=	$(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 MKDIR 		= 	mkdir -p $(@D)
 
@@ -84,7 +90,7 @@ MKDIR 		= 	mkdir -p $(@D)
 all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(LIBS_PATH) $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) $(ALL_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
 	@echo "$(BLUE) $(NAME) has been created! $(RESET)"
 
 $(BUILD_DIR)%.o : $(SRC_DIR)%.c
@@ -97,7 +103,7 @@ $(LIBS_PATH): FORCE
 bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(LIBS_PATH) $(OBJS_BONUS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS_BONUS) $(LDFLAGS) $(LDLIBS) -o $(NAME_BONUS) 
+	$(CC) $(ALL_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS) 
 	@echo "$(BLUE) $(NAME_BONUS) has been created! $(RESET)"
 
 -include $(DEPS)
@@ -117,7 +123,7 @@ re : fclean
 	$(MAKE)
 
 debug :
-	$(MAKE) CFLAGS="-Wall -Wextra -Werror -g3"
+	$(MAKE) CC_OPTION="-g3" BUILD_DIR=".build/debug/"
 
 norminette :
 	$(MAKE) $@ -C $(dir $(LIBS_PATH))

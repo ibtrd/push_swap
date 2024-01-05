@@ -98,6 +98,7 @@ void	set_index(t_stack *stack);
 void	simplify_operations(t_stack *a);
 void	sort_three_elements(t_stack *a);
 void	sort_two_elements(t_stack *a);
+void	sort_up_to_five(t_stack *a, t_stack *b);
 void	swap(t_stack *a, t_stack *b);
 
 #endif
