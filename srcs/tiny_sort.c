@@ -6,17 +6,11 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 00:10:19 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 05:31:22 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/06 08:58:56 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	sort_two_elements(t_stack *a)
-{
-	if (a->head->value > a->head->next->value)
-		swap(a, NULL);
-}
 
 void	sort_three_elements(t_stack *a)
 {
@@ -40,9 +34,10 @@ void	sort_up_to_five(t_stack *a, t_stack *b)
 		else
 			rotate(a, b);
 	}
-	sort_three_elements(a);
-	push(b, a);
-	push(b, a);
+	if (a->size == 3)
+		sort_three_elements(a);
+	while (b->size)
+		push(b, a);
 	if (a->head->index > a->head->next->index)
 		swap(a, NULL);
 }

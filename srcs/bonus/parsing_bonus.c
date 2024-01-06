@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:59:05 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 04:29:51 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/06 11:45:31 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,17 @@ static int	get_value(char *str, t_stack *a)
 static int	is_duplicate_value(t_stack *a, int value)
 {
 	t_node	*curr;
+	int		i;
 
 	if (!a->head)
 		return (0);
 	curr = a->head;
-	while (1)
+	i = 0;
+	while (i++ < a->size)
 	{
 		if (value == curr->value)
 			return (1);
 		curr = curr->next;
-		if (curr == a->head)
-			return (0);
 	}
+	return (0);
 }

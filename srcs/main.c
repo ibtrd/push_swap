@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 05:28:35 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/06 13:14:10 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	parse_argv(argv + 1, &a);
 	if (!a.size)
 		free_and_exit(&a, true);
-	if (is_stack_sorted(a.head, a.size))
+	if (a.size == 1 || is_stack_sorted(a.head))
 		free_and_exit(&a, false);
 	sort_stack(&a, &b);
 	if (!FORCEPRINT)
@@ -44,11 +44,7 @@ static void	sort_stack(t_stack *a, t_stack *b)
 	int	chunk;
 
 	set_index(a);
-	if (a->size == 2)
-		sort_two_elements(a);
-	else if (a->size == 3)
-		sort_three_elements(a);
-	else if (a->size < 6)
+	if (a->size < 6)
 		sort_up_to_five(a, b);
 	else
 	{

@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/05 07:10:45 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/06 12:38:57 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_BONUS = checker
 SRCS = \
 	$(addsuffix .c, $(SRC))
 
-SRC_DIR	= srcs/
+SRCS_DIR	= srcs/
 SRC	= \
 	insert_biggest_sort \
 	main \
@@ -56,7 +56,11 @@ SRC_BONUS = \
 
 # *** OBJECTS **************************************************************** #
 
-BUILD_DIR	=	.build/
+ifndef DEBUG
+BUILD_DIR = .build/
+else
+BUILD_DIR = .build/debug/
+endif
 
 OBJS 		=	$(SRCS:%.c=$(BUILD_DIR)%.o)
 
@@ -67,22 +71,41 @@ DEPS		=	$(OBJS:%.o=%.d) \
 
 # *** LIBRARIES ************************************************************** #
 
-LIBS		=	ft
-LIBS_PATH 	=	libft/libft.a
+LIB_NAME	=	ft
+LIB_PATH	=	libft/libft.a
 
-INCLUDES	=	incs \
-				$(dir $(LIBS_PATH))incs
+HEADERS		=	incs/
+
+INCLUDES	= 	$(HEADERS) \
+				$(dir $(LIB_PATH))incs/
+
+# *** TRACE ****************************************************************** #
+
+TRACE_DIR = .build/.trace/
+STD_TRACE = $(TRACE_DIR)std/
+DEBUG_TRACE = $(TRACE_DIR)debug/
+
+ifndef DEBUG
+TRACE =	$(STD_TRACE)
+else
+TRACE = $(DEBUG_TRACE)
+endif
 
 # *** CONFIG ***************************************************************** #
 
-CC_OPTION	= 	-O3
+ifndef DEBUG
+CC_OPTION = -O3
+else
+CC_OPTION = -g3
+endif
+
 CFLAGS		=	-Wall -Wextra -Werror $(CC_OPTION) -MMD -MP
 
-CPPFLAGS	= 	$(addprefix -I, $(INCLUDES))
-LDFLAGS		=	$(addprefix -L, $(dir $(LIBS_PATH)))
-LDLIBS		=	$(addprefix -l, $(LIBS))
+CPPFLAGS 	= 	$(addprefix -I, $(INCLUDES))
+LDFLAGS		=	$(addprefix -L, $(dir $(LIB_PATH)))
+LDLIBS		=	$(addprefix -l, $(LIB_NAME))
 
-ALL_FLAGS	=	$(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
+PREPROCESSOR_FLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 MKDIR 		= 	mkdir -p $(@D)
 
@@ -90,52 +113,77 @@ MKDIR 		= 	mkdir -p $(@D)
 
 all : $(NAME) $(NAME_BONUS)
 
-$(NAME) : $(LIBS_PATH) $(OBJS)
-	$(CC) $(ALL_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
-	@echo "$(BLUE) $(NAME) has been built! $(RESET)"
-
-$(BUILD_DIR)%.o : $(SRC_DIR)%.c
-	@$(MKDIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
-
-$(LIBS_PATH): FORCE
-	$(MAKE) -C $(@D)
+$(NAME) : $(LIB_PATH) $(OBJS) $(addsuffix $(NAME), $(TRACE))
+	$(CC) $(PREPROCESSOR_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+ifndef DEBUG
+	@$(RM) $(DEBUG_TRACE)$@
+	@echo "$(GREEN) $(NAME) has been built! $(RESET)"
+else
+	@$(RM) $(STD_TRACE)$@
+	@echo "$(GREEN) $(NAME)(DEBUG) has been built! $(RESET)"
+endif
 
 bonus : $(NAME_BONUS)
 
-$(NAME_BONUS) : $(LIBS_PATH) $(OBJS_BONUS)
-	$(CC) $(ALL_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS) 
-	@echo "$(BLUE) $(NAME_BONUS) has been built! $(RESET)"
+$(NAME_BONUS) : $(LIB_PATH) $(OBJS_BONUS) $(addsuffix $(NAME_BONUS), $(TRACE))
+	$(CC) $(PREPROCESSOR_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS)
+ifndef DEBUG
+	@$(RM) $(DEBUG_TRACE)$@
+	@echo "$(GREEN) $(NAME_BONUS) has been built! $(RESET)"
+else
+	@$(RM) $(STD_TRACE)$@
+	@echo "$(GREEN) $(NAME_BONUS)(DEBUG) has been built! $(RESET)"
+endif
+
+$(BUILD_DIR)%.o : $(SRCS_DIR)%.c
+	@$(MKDIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(LIB_PATH): FORCE 
+	@$(MAKE) -C $(@D) --no-print-directory
+
+$(TRACE)% :
+	@$(MKDIR)
+	@touch $@
 
 -include $(DEPS)
 
 clean :
-	$(MAKE) -C $(dir $(LIBS_PATH)) clean
+	$(MAKE) -C $(dir $(LIB_PATH)) clean --no-print-directory
 	rm -rf $(BUILD_DIR)
-	@echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
+	echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
 	
 fclean :
-	$(MAKE) -C $(dir $(LIBS_PATH)) fclean
+	$(MAKE) -C $(dir $(LIB_PATH)) fclean --no-print-directory
 	rm -rf $(BUILD_DIR)
-	$(RM) $(NAME) $(NAME_BONUS)
-	@echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
+	$(RM) $(NAME) $(NAME_BONUS) $(TRACE)
+	echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
 	
 re : fclean
-	$(MAKE)
+	$(MAKE) --no-print-directory
 
 debug :
-	$(MAKE) CC_OPTION="-g3" BUILD_DIR=".build/debug/"
+	$(MAKE) DEBUG=1 --no-print-directory
+
+%debug :
+	$(MAKE) $(subst debug,,$@) DEBUG=1 --no-print-directory
 
 norminette :
-	$(MAKE) $@ -C $(dir $(LIBS_PATH))
-	norminette $(SRC_DIR)
-	norminette $(INCLUDES)
-	
+	$(MAKE) $@ -C $(dir $(LIB_PATH)) --no-print-directory
+	echo
+	mkdir -p $(BUILD_DIR)
+	norminette $(HEADERS) $(SRCS_DIR) > $(BUILD_DIR)norminette.log; echo -n
+	echo "$(NAME):"
+	if [ $$(< $(BUILD_DIR)norminette.log grep Error | wc -l) -eq 0 ]; \
+		then echo "Norm check OK!"; \
+		else < $(BUILD_DIR)norminette.log grep Error; fi
+		
 # *** SPECIAL TARGETS ******************************************************** #
 
-.PHONY : all clean fclean re debug norminette
-
 FORCE :
+
+.PHONY : all bonus clean fclean re debug debug %debug norminette
+.SILENT : clean fclean re debug norminette
 
 # *** FANCY STUFF ************************************************************ #
 

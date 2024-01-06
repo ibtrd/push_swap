@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_b_to_a.c                                      :+:      :+:    :+:   */
+/*   insert_biggest_sort.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/04 03:40:13 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/06 10:30:15 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static int	set_direction(t_stack *a, t_stack *b)
 	int		to_bot;
 
 	top = get_biggest_node(b);
-	to_top = single_node_distance(b->head, top);
+	to_top = single_node_distance(b->head, top, b->size);
 	bot = get_single_node(b, a->head->prev->index + 1);
 	if (!bot)
 		return (to_top);
-	to_bot = single_node_distance(b->head, bot);
+	to_bot = single_node_distance(b->head, bot, b->size);
 	return (get_closest_node(b, top->index, bot->index));
 }
 

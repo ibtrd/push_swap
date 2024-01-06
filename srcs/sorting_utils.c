@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 03:27:00 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/01 01:20:17 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/06 10:30:44 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,25 @@ void	set_index(t_stack *stack)
 	t_node	*curr;
 	t_node	*cmp;
 	int		i;
+	int		j;
+	int		index;
 
 	curr = stack->head;
-	while (1)
+	index = 0;
+	j = 0;
+	while (j++ < stack->size)
 	{
 		i = 0;
+		index = 0;
 		cmp = stack->head;
-		while (1)
+		while (i++ < stack->size)
 		{
 			if (cmp->value < curr->value)
-				i++;
+				index++;
 			cmp = cmp->next;
-			if (cmp == stack->head)
-				break ;
 		}
-		curr->index = i;
+		curr->index = index;
 		curr = curr->next;
-		if (curr == stack->head)
-			break ;
 	}
 }
 
@@ -73,7 +74,7 @@ t_node	*get_single_node(t_stack *stack, int target)
 	return (NULL);
 }
 
-int	single_node_distance(t_node *head, t_node *target)
+int	single_node_distance(t_node *head, t_node *target, int size)
 {
 	t_node	*rot;
 	t_node	*rev;
@@ -82,7 +83,7 @@ int	single_node_distance(t_node *head, t_node *target)
 	i = 0;
 	rot = head;
 	rev = head;
-	while (1)
+	while (i < size)
 	{
 		if (rev == target)
 			return (-i);
@@ -92,4 +93,5 @@ int	single_node_distance(t_node *head, t_node *target)
 		rev = rev->prev;
 		i++;
 	}
+	return (0);
 }

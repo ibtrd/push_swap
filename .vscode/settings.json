@@ -27,6 +27,9 @@
 		"regex": "c",
 		"libft.h": "c",
 		"errno.h": "c",
-		"error_t.h": "c"
+		"error_t.h": "c",
+		"concepts": "c",
+		"fstream": "c",
+		"*.tcc": "c"
 	}
 }

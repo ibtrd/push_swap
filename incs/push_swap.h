@@ -74,8 +74,8 @@ typedef struct s_rotations
 
 int		check_argv(char **argv);
 int		is_rotation(t_opid i);
-int		is_stack_sorted(t_node *head, size_t size);
-int		single_node_distance(t_node *head, t_node *target);
+int		is_stack_sorted(t_node *head);
+int		single_node_distance(t_node *head, t_node *target, int size);
 t_node	*get_biggest_node(t_stack *stack);
 t_node	*get_single_node(t_stack *stack, int target);
 void	add_to_stack(t_stack *a, int value);
