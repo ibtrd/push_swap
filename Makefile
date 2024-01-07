@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/07 08:08:55 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/07 09:33:04 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRC	= \
 	sorting_utils \
 	stacks_utils \
 	swap \
-	tiny_sort \
 
 # *** SOURCES BONUS ********************************************************** #
 
