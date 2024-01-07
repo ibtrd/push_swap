@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 07:20:54 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 03:06:02 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/07 08:00:41 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ bool	is_stack_sorted(t_node *head)
 	t_node	*curr;
 	int		i;
 
+	if (!head)
+		return (false);
 	curr = head;
 	i = 0;
 	while (curr->next != head)

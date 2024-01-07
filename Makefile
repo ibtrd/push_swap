@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/06 12:38:57 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/07 07:45:37 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,9 +81,9 @@ INCLUDES	= 	$(HEADERS) \
 
 # *** TRACE ****************************************************************** #
 
-TRACE_DIR = .build/.trace/
-STD_TRACE = $(TRACE_DIR)std/
-DEBUG_TRACE = $(TRACE_DIR)debug/
+TRACE_DIR = .trace/
+STD_TRACE = $(TRACE_DIR)
+DEBUG_TRACE = $(TRACE_DIR)debug_
 
 ifndef DEBUG
 TRACE =	$(STD_TRACE)
@@ -105,7 +105,7 @@ CPPFLAGS 	= 	$(addprefix -I, $(INCLUDES))
 LDFLAGS		=	$(addprefix -L, $(dir $(LIB_PATH)))
 LDLIBS		=	$(addprefix -l, $(LIB_NAME))
 
-PREPROCESSOR_FLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
+CC_FLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 MKDIR 		= 	mkdir -p $(@D)
 
@@ -114,7 +114,7 @@ MKDIR 		= 	mkdir -p $(@D)
 all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(LIB_PATH) $(OBJS) $(addsuffix $(NAME), $(TRACE))
-	$(CC) $(PREPROCESSOR_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(CC) $(CC_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
 ifndef DEBUG
 	@$(RM) $(DEBUG_TRACE)$@
 	@echo "$(GREEN) $(NAME) has been built! $(RESET)"
@@ -126,7 +126,7 @@ endif
 bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(LIB_PATH) $(OBJS_BONUS) $(addsuffix $(NAME_BONUS), $(TRACE))
-	$(CC) $(PREPROCESSOR_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS)
+	$(CC) $(CC_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS)
 ifndef DEBUG
 	@$(RM) $(DEBUG_TRACE)$@
 	@echo "$(GREEN) $(NAME_BONUS) has been built! $(RESET)"
@@ -151,11 +151,13 @@ $(TRACE)% :
 clean :
 	$(MAKE) -C $(dir $(LIB_PATH)) clean --no-print-directory
 	rm -rf $(BUILD_DIR)
+	rm -rf $(TRACE_DIR)
 	echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
 	
 fclean :
 	$(MAKE) -C $(dir $(LIB_PATH)) fclean --no-print-directory
 	rm -rf $(BUILD_DIR)
+	rm -rf $(TRACE_DIR)
 	$(RM) $(NAME) $(NAME_BONUS) $(TRACE)
 	echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
 	
