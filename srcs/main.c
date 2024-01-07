@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 16:57:04 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/06 13:14:10 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/07 09:01:38 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "push_swap.h"
 
 static void	sort_stack(t_stack *a, t_stack *b);
-static int	chunk_size_formula(int size);
 
 int	main(int argc, char **argv)
 {
@@ -41,26 +40,12 @@ int	main(int argc, char **argv)
 
 static void	sort_stack(t_stack *a, t_stack *b)
 {
-	int	chunk;
-
-	set_index(a);
-	if (a->size < 6)
-		sort_up_to_five(a, b);
-	else
-	{
-		chunk = chunk_size_formula(a->size);
-		progressive_presort(a, b, chunk);
-		sort_three_elements(a);
-		insert_biggest_sort(a, b);
-	}
-}
-
-static int	chunk_size_formula(int size)
-{
 	double	chunk;
 
-	chunk = 0.000000053 * size * size + 0.03 * size + 14.5;
-	return (chunk);
+	chunk = 0.000000053 * a->size * a->size + 0.03 * a->size + 14.5;
+	set_index(a);
+	progressive_presort(a, b, chunk);
+	insert_biggest_sort(a, b);
 }
 
 void	free_and_exit(t_stack *stack, bool error)

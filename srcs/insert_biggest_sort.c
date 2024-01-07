@@ -6,7 +6,7 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 00:58:36 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/06 10:30:15 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/07 08:43:18 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	insert_biggest_sort(t_stack *a, t_stack *b)
 	int		direction;
 
 	bot_stack = 0;
-	while (b->head)
+	while (b->size)
 	{
 		direction = set_direction(a, b);
 		instruction(a, b, &direction, &bot_stack);

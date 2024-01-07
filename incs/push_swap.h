@@ -87,7 +87,6 @@ void	insert_biggest_sort(t_stack *a, t_stack *b);
 void	op_clear(t_op **list);
 void	operation_to_list(t_stack *stack, t_opid i);
 void	parse_argv(char **argv, t_stack *a);
-void	presort_init(int *range, int stack_size, int *direction);
 void	print_operation(t_opid i, t_stack *a);
 void	progressive_presort(t_stack *a, t_stack *b, int chunck);
 void	push(t_stack *from, t_stack *to);
@@ -96,9 +95,6 @@ void	rotate(t_stack *a, t_stack *b);
 void	rotation_control(t_stack *a, t_stack *b, int direction);
 void	set_index(t_stack *stack);
 void	simplify_operations(t_stack *a);
-void	sort_three_elements(t_stack *a);
-void	sort_two_elements(t_stack *a);
-void	sort_up_to_five(t_stack *a, t_stack *b);
 void	swap(t_stack *a, t_stack *b);
 
 #endif
