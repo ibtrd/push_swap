@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/09 06:44:11 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/09 06:56:18 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,14 +73,6 @@ HEADERS		=	incs/
 INCLUDES	= 	$(HEADERS) \
 				$(dir $(LIB_PATH))incs/
 
-# *** TRACE ****************************************************************** #
-
-TRACE_DIR = .trace/
-
-STD_TRACE = $(TRACE_DIR)
-
-TRACE =	$(STD_TRACE)
-
 # *** CONFIG ***************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror -O3 -MMD -MP
@@ -93,6 +85,14 @@ CC_FLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 MKDIR = mkdir -p $(@D)
 
 MAKE += --no-print-directory
+
+# *** TRACE ****************************************************************** #
+
+TRACE_DIR = .trace/
+
+STD_TRACE = $(TRACE_DIR)
+
+TRACE =	$(STD_TRACE)
 
 # *** DEBUG ****************************************************************** #
 
@@ -126,12 +126,12 @@ bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(LIB_PATH) $(OBJS_BONUS) $(addsuffix $(NAME_BONUS), $(TRACE))
 	$(CC) $(CC_FLAGS) $(OBJS_BONUS) $(LDLIBS) -o $(NAME_BONUS)
-ifndef DEBUG
-	@$(RM) $(DEBUG_TRACE)$@
-	@echo "$(GREEN) $(NAME_BONUS) has been built! $(RESET)"
-else
+ifeq ($(DEBUG),1)
 	@$(RM) $(STD_TRACE)$@
 	@echo "$(GREEN) $(NAME_BONUS)(DEBUG) has been built! $(RESET)"
+else
+	@$(RM) $(DEBUG_TRACE)$@
+	@echo "$(GREEN) $(NAME_BONUS) has been built! $(RESET)"
 endif
 
 $(BUILD_DIR)%.o : $(SRCS_DIR)%.c
@@ -188,7 +188,7 @@ norminette :
 FORCE :
 
 .PHONY : FORCE
-.SILENT : clean fclean re debug norminette
+.SILENT : clean fclean re debug %debug norminette
 
 # *** FANCY STUFF ************************************************************ #
 
