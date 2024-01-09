@@ -6,11 +6,12 @@
 /*   By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:02:44 by ibertran          #+#    #+#             */
-/*   Updated: 2024/01/05 03:20:50 by ibertran         ###   ########lyon.fr   */
+/*   Updated: 2024/01/09 06:30:17 by ibertran         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <errno.h>
 #include "checker_bonus.h"
 #include "libft.h"
