@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/09 06:56:18 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/09 07:00:19 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,14 +152,16 @@ clean :
 	$(MAKE) -C $(dir $(LIB_PATH)) clean
 	rm -rf $(BUILD_DIR)
 	rm -rf $(TRACE_DIR)
+	$(RM) norminette.log
 	echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
 
 .PHONY : fclean
 fclean :
 	$(MAKE) -C $(dir $(LIB_PATH)) fclean
+	$(RM) $(NAME) $(NAME_BONUS)
 	rm -rf $(BUILD_DIR)
 	rm -rf $(TRACE_DIR)
-	$(RM) $(NAME) $(NAME_BONUS) $(TRACE)
+	$(RM) norminette.log
 	echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
 	
 .PHONY : re
