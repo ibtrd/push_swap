@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/28 17:14:34 by ibertran          #+#    #+#              #
-#    Updated: 2024/01/07 09:33:04 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/01/09 06:44:11 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,7 @@ SRC_BONUS = \
 
 # *** OBJECTS **************************************************************** #
 
-ifndef DEBUG
 BUILD_DIR = .build/
-else
-BUILD_DIR = .build/debug/
-endif
 
 OBJS 		=	$(SRCS:%.c=$(BUILD_DIR)%.o)
 
@@ -80,47 +76,52 @@ INCLUDES	= 	$(HEADERS) \
 # *** TRACE ****************************************************************** #
 
 TRACE_DIR = .trace/
-STD_TRACE = $(TRACE_DIR)
-DEBUG_TRACE = $(TRACE_DIR)debug_
 
-ifndef DEBUG
+STD_TRACE = $(TRACE_DIR)
+
 TRACE =	$(STD_TRACE)
-else
-TRACE = $(DEBUG_TRACE)
-endif
 
 # *** CONFIG ***************************************************************** #
 
-ifndef DEBUG
-CC_OPTION = -O3
-else
-CC_OPTION = -g3
-endif
-
-CFLAGS		=	-Wall -Wextra -Werror $(CC_OPTION) -MMD -MP
-
-CPPFLAGS 	= 	$(addprefix -I, $(INCLUDES))
-LDFLAGS		=	$(addprefix -L, $(dir $(LIB_PATH)))
-LDLIBS		=	$(addprefix -l, $(LIB_NAME))
+CFLAGS = -Wall -Wextra -Werror -O3 -MMD -MP
+CPPFLAGS = $(addprefix -I, $(INCLUDES))
+LDFLAGS = $(addprefix -L, $(dir $(LIB_PATH)))
+LDLIBS = $(addprefix -l, $(LIB_NAME))
 
 CC_FLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
-MKDIR 		= 	mkdir -p $(@D)
+MKDIR = mkdir -p $(@D)
+
+MAKE += --no-print-directory
+
+# *** DEBUG ****************************************************************** #
+
+ifeq ($(DEBUG),1)
+BUILD_DIR := $(BUILD_DIR)debug/
+
+CFLAGS := $(filter-out -O3,$(CFLAGS)) -g3
+
+TRACE = $(DEBUG_TRACE)
+endif
+
+DEBUG_TRACE = $(TRACE_DIR)debug_
 
 # *** TARGETS **************************************************************** #
 
+.PHONY : all
 all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(LIB_PATH) $(OBJS) $(addsuffix $(NAME), $(TRACE))
 	$(CC) $(CC_FLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
-ifndef DEBUG
-	@$(RM) $(DEBUG_TRACE)$@
-	@echo "$(GREEN) $(NAME) has been built! $(RESET)"
-else
+ifeq ($(DEBUG),1)
 	@$(RM) $(STD_TRACE)$@
 	@echo "$(GREEN) $(NAME)(DEBUG) has been built! $(RESET)"
+else
+	@$(RM) $(DEBUG_TRACE)$@
+	@echo "$(GREEN) $(NAME) has been built! $(RESET)"
 endif
 
+.PHONY : bonus
 bonus : $(NAME_BONUS)
 
 $(NAME_BONUS) : $(LIB_PATH) $(OBJS_BONUS) $(addsuffix $(NAME_BONUS), $(TRACE))
@@ -138,7 +139,7 @@ $(BUILD_DIR)%.o : $(SRCS_DIR)%.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(LIB_PATH): FORCE 
-	@$(MAKE) -C $(@D) --no-print-directory
+	@$(MAKE) -C $(@D)
 
 $(TRACE)% :
 	@$(MKDIR)
@@ -146,43 +147,47 @@ $(TRACE)% :
 
 -include $(DEPS)
 
+.PHONY : clean
 clean :
-	$(MAKE) -C $(dir $(LIB_PATH)) clean --no-print-directory
+	$(MAKE) -C $(dir $(LIB_PATH)) clean
 	rm -rf $(BUILD_DIR)
 	rm -rf $(TRACE_DIR)
 	echo "$(YELLOW) $(NAME) building files removed! $(RESET)"
-	
+
+.PHONY : fclean
 fclean :
-	$(MAKE) -C $(dir $(LIB_PATH)) fclean --no-print-directory
+	$(MAKE) -C $(dir $(LIB_PATH)) fclean
 	rm -rf $(BUILD_DIR)
 	rm -rf $(TRACE_DIR)
 	$(RM) $(NAME) $(NAME_BONUS) $(TRACE)
 	echo "$(YELLOW) $(NAME) && $(NAME_BONUS) removed! $(RESET)"
 	
+.PHONY : re
 re : fclean
-	$(MAKE) --no-print-directory
+	$(MAKE)
 
+.PHONY : debug
 debug :
-	$(MAKE) DEBUG=1 --no-print-directory
+	$(MAKE) DEBUG=1
 
+.PHONY : %debug
 %debug :
-	$(MAKE) $(subst debug,,$@) DEBUG=1 --no-print-directory
+	$(MAKE) $(subst debug,,$@) DEBUG=1
 
+.PHONY : norminette
 norminette :
-	$(MAKE) $@ -C $(dir $(LIB_PATH)) --no-print-directory
-	echo
-	mkdir -p $(BUILD_DIR)
-	norminette $(HEADERS) $(SRCS_DIR) > $(BUILD_DIR)norminette.log; echo -n
-	echo "$(NAME):"
-	if [ $$(< $(BUILD_DIR)norminette.log grep Error | wc -l) -eq 0 ]; \
-		then echo "Norm check OK!"; \
-		else < $(BUILD_DIR)norminette.log grep Error; fi
-		
+	$(MAKE) $@ -C $(dir $(LIB_PATH))
+	norminette $(HEADERS) $(SRCS_DIR) > norminette.log; echo -n
+	if [ $$(< norminette.log grep Error | wc -l) -eq 0 ]; \
+		then echo "$(NAME): \e[32;49;1mOK!\e[0m"; \
+		else echo "$(NAME): \e[31;49;1mKO!\e[0m" \
+			&& < norminette.log grep Error; fi
+			
 # *** SPECIAL TARGETS ******************************************************** #
 
 FORCE :
 
-.PHONY : all bonus clean fclean re debug debug %debug norminette
+.PHONY : FORCE
 .SILENT : clean fclean re debug norminette
 
 # *** FANCY STUFF ************************************************************ #
